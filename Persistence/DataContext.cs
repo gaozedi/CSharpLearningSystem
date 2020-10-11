@@ -9,16 +9,16 @@ namespace Persistence
         {
         }
 
-        public DbSet<Value> Values { get; set; }
+        public DbSet<TutorialUnit> TutorialUnits { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Value>()
-                .HasData(
-                    new Value { Id = 1, Name = "Value 101" },
-                    new Value { Id = 2, Name = "Value 102" },
-                    new Value { Id = 3, Name = "Value 103" }
-                );
-        }
+        // protected override void OnModelCreating(ModelBuilder builder)
+        // {
+        //     builder.Entity<Article>()
+        //         .HasData(
+        //             new Article { Id = 1, Content = "Value 101" },
+        //             new Article { Id = 2, Content = "Value 102" },
+        //             new Article { Id = 3, Content = "Value 103" }
+        //         );
+        // }
     }
 }

@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
+using MediatR;
+using Application.TutorialUnits;
+
+namespace API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TutorialUnitsController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public TutorialUnitsController(IMediator mediator)
+        {
+            this._mediator = mediator;
+        }
+
+        // GET api/values
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TutorialUnit>>> List()
+        {
+            //send message to List Handler
+            return await _mediator.Send(new List.Query());
+        }
+
+        // // GET api/values/5
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<Value>> Get(int id)
+        // {
+        //     var value = await _context.Values.FindAsync(id);
+        //     return Ok(value);
+        // }
+
+        // // POST api/values
+        // [HttpPost]
+        // public void Post([FromBody] string value)
+        // {
+        // }
+
+        // // PUT api/values/5
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody] string value)
+        // {
+        // }
+
+        // // DELETE api/values/5
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
+    }
+}

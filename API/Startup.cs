@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.TutorialUnits;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Persistence;
 
 namespace API
@@ -28,9 +27,20 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt =>
+{
+    opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+});
+            ///////////////////////// Add Service ///////////////////////////////////
+            services.AddCors(opt =>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    //any request coming from client-app will be allow to use any header and any method(GET,POST etc.)
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
             });
+
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
         }
 
@@ -42,11 +52,13 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+         //   app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
