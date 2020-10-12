@@ -1,22 +1,19 @@
 import { observer } from "mobx-react-lite";
 import React, {  useContext } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
-import { ITutorialUnit } from "../../../app/model/unit";
 import UnitStore from "../../../app/stores/unitStore";
 
-interface IProps{
-  units: ITutorialUnit[];
-}
-
-
-const UnitsList: React.FC<IProps>= ({units}) => {
+const UnitsList: React.FC = () => {
+  const unitStore = useContext(UnitStore);
+  //insead of using activities directly, we use computed value activitiesByDate
+  const {allunits,title} = unitStore;
  
- 
+
   return (
     <Segment clearing>
-     
+      <h1>{title}</h1>
       <Item.Group divided>
-        {units.map((unit) => (
+        {allunits.map((unit) => (
           <Item >
             <Item.Content>
               <Item.Header as="a">{unit.content}</Item.Header>
@@ -27,20 +24,20 @@ const UnitsList: React.FC<IProps>= ({units}) => {
               <Item.Extra>
                 <Button
                   floated="right"
-                  content="Go!"
-                  color="yellow"
+                  content="View"
+                  color="blue"
                 />
-                {/* <Button
+                <Button
                   name={unit.id}
                   floated="right"
                   content="Delete"
                   color="red"
-                /> */}
+                />
                 <Label basic content="label content" />
               </Item.Extra>
             </Item.Content>
           </Item>
-        // <h2>{unit.content}</h2>
+        
         ))}
       </Item.Group>
     </Segment>

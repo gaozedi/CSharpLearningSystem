@@ -11,28 +11,18 @@ import { ITutorialUnit } from "../model/unit";
 
 const App = () => {
   const [units, setUnits] = useState<ITutorialUnit[]>([]);
-  //const units = unitStore;
+  const store = useContext(UnitStore);
   useEffect(() => {
-    agent.TutorialUnits.list()
-      .then((response) => {
-        let units: ITutorialUnit[] = [];
-        response.forEach((activity) => {
-
-          units.push(activity);
-        });
-        setUnits(units);
-      })
-  }, []);
-  
-
+    store.loadUnits();
+  }, [store]);
 
   return (
     <Fragment>
       <NavBar />
 
       <Container style={{ marginTop: "7em" }}>
-        
-        <UnitDashboard units= {units}/>
+        <h1>{store.title}</h1>
+        <UnitDashboard />
       </Container>
     </Fragment>
   );

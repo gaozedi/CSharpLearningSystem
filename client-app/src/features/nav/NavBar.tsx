@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
         </Menu.Item>
         <Menu.Item name='Live Teaching' />
         <Menu.Item>
-            <Button   content='Code Playground' />
+            <Button  color="blue" content='Code Playground' />
         </Menu.Item>
       </Container>
     </Menu>
