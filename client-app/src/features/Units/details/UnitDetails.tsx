@@ -9,7 +9,8 @@ import gfm from 'remark-gfm'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {vs} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { prism } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { MyCompiler } from "../../compiler/MyCompiler";
+import MyCompiler from "../../compiler/MyCompiler";
+
 interface DetailParams {
   id: string;
 }

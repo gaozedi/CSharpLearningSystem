@@ -17,7 +17,7 @@ namespace API
         public static string Compile(string code)
         {
             Write("compiler called.");
-            
+            Console.WriteLine(code);
             string codeToCompile = $@"
             using System;
 
