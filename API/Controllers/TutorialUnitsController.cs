@@ -19,7 +19,7 @@ namespace API.Controllers
 
         public TutorialUnitsController(IMediator mediator)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         // GET api/values
@@ -30,14 +30,22 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
-        // // GET api/values/5
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<Value>> Get(int id)
-        // {
-        //     var value = await _context.Values.FindAsync(id);
-        //     return Ok(value);
-        // }
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TutorialUnit>> Details(int id)
+        {
+            //send message to List Handler
+            return await _mediator.Send(new Details.Query { Id = id });
+        }
 
+        [Route("Compiler")]
+        [HttpGet]
+        public ActionResult Compile(string code)
+        {
+            var result = MyCompiler.Compile(code).ToString();
+            Console.WriteLine(result);
+            return Ok(result);
+        }
         // // POST api/values
         // [HttpPost]
         // public void Post([FromBody] string value)

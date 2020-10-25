@@ -1,4 +1,4 @@
-import { ITutorialUnit } from './../model/unit';
+import { ITutorialUnit } from "./../model/unit";
 import axios, { AxiosResponse } from "axios";
 
 //set the base URL
@@ -13,9 +13,11 @@ const requests = {
 
 //create a const for our activty's feature,all our activities' request are go inside our Activities object
 const TutorialUnits = {
-  list: ():Promise<ITutorialUnit[]> => requests.get("/tutorialunits")
+  list: (): Promise<ITutorialUnit[]> => requests.get("/tutorialunits"),
+  details: (id: string) => requests.get(`/tutorialunits/${id}`),
+  compile: (code: string) => requests.get(`/tutorialunits/Compiler?code=${code}`),
 };
 
-export default{
-    TutorialUnits
-}
+export default {
+  TutorialUnits,
+};

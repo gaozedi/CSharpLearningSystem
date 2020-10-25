@@ -11,7 +11,7 @@ import UnitsList from "./UnitsList";
 export const UnitDashboard: React.FC= () => {
   return (
     <Grid>
-      <Grid.Column width={10}>
+      <Grid.Column width={16}>
         <UnitsList />
       </Grid.Column>
     </Grid>
