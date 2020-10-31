@@ -2,8 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, Container, Button } from 'semantic-ui-react';
 
-
-
 const NavBar: React.FC = () => {
   return (
     <Menu fixed='top' inverted>
@@ -13,9 +11,7 @@ const NavBar: React.FC = () => {
             CSharp Learning
         </Menu.Item>
         <Menu.Item name='Live Teaching' />
-        <Menu.Item>
-            <Button  color="blue" inverted content='Code Playground' />
-        </Menu.Item>
+        <Menu.Item name='Code PlayGround'/>
       </Container>
     </Menu>
   );

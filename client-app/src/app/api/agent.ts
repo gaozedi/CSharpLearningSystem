@@ -1,7 +1,7 @@
 import { ICode } from "./../model/code";
 import { ITutorialUnit } from "./../model/unit";
 import axios, { AxiosResponse } from "axios";
-import { Icon } from "semantic-ui-react";
+
 
 //set the base URL
 //axios.defaults.baseURL = "http://localhost:5000/api";

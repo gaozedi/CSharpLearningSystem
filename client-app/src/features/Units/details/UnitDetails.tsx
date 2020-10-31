@@ -1,14 +1,14 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { Card, Image, Button, Segment } from "semantic-ui-react";
+import {  Button, Segment } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import unitStore from "../../../app/stores/unitStore";
 import ReactMarkdown from "react-markdown";
 import gfm from 'remark-gfm'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {vs} from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { prism } from "react-syntax-highlighter/dist/cjs/styles/prism";
+//import { prism } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import MyCompiler from "../../compiler/MyCompiler";
 
 interface DetailParams {
@@ -73,7 +73,7 @@ class Program
   useEffect(() => {
     loadOneUnit(match.params.id);
     //pass loadActivity as dependency so the useEffect run only once.
-  }, [loadOneUnit]);
+  }, [loadOneUnit,match.params.id]);
   //check if it's loading or the activity is undefined
   if (loadingInitial || !unit)
     return <LoadingComponent content="Loading one unit..." />;
@@ -107,11 +107,18 @@ class Program
     //   </Card.Content>
     // </Card>
     <Segment>
+      
+ 
+ 
     <ReactMarkdown plugins={[gfm]} renderers={renderers} children={markdown} />
     <MyCompiler />
-
-    <h2> </h2>
-
+<Segment clearing basic >
+  
+<Button floated="right" circular color='facebook' icon='facebook' />
+    <Button floated="right" circular color='twitter' icon='twitter' />
+    <Button floated="right" circular color='linkedin' icon='linkedin' />
+    <Button floated="right" circular color='google plus' icon='google plus' />
+</Segment>
     </Segment>
   );
 };

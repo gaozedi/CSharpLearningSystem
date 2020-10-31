@@ -1,7 +1,7 @@
 import { IInspectResult } from './../model/inspectResult';
 import { ICode } from "./../model/code";
 import { ITutorialUnit } from "./../model/unit";
-import { action, configure, observable, runInAction } from "mobx";
+import { action,  observable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { createContext } from "react";
 
@@ -12,7 +12,7 @@ class UnitStore {
   @observable unit: ITutorialUnit | undefined = undefined;
   //observable for loading indicator
   @observable loadingInitial = false;
-  @observable title = "Test for mobx";
+
   // @observable unitsRegistry = new Map();
   @observable compiledResult = "";
   @observable inspectResult:IInspectResult | undefined = undefined;
@@ -58,7 +58,7 @@ class UnitStore {
 
   //helper method, don't need to be an action because not mutating states
   getUnit = (id: string) => {
-    return this.allunits.find((a) => a.id == id);
+    return this.allunits.find((a) => a.id === id);
   };
 
   @action compileCode = async (code: ICode) => {

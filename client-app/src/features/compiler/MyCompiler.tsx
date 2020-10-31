@@ -2,12 +2,9 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import {
   Button,
-  Divider,
   Form,
   Icon,
-  Label,
   Message,
-  Popup,
   Rating,
   Segment,
 } from "semantic-ui-react";
@@ -17,7 +14,7 @@ import TextAreaInput from "../../app/common/form/TextAreaInput";
 import { ICode } from "../../app/model/code";
 
 const MyCompiler: React.FC = () => {
-  const [code, setCode] = useState<ICode>();
+  const [code] = useState<ICode>();
   const store = useContext(UnitStore);
   const {
     compiledResult,
@@ -78,15 +75,14 @@ const MyCompiler: React.FC = () => {
           <Message.Header>AI code inspection running</Message.Header>
           Malicious Code Probability:{inspectResult?.score}
         </Message.Content>
-        {inspectResult != undefined && (
+        {inspectResult !== undefined && (
           <Rating
             icon="heart"
-            defaultRating={10-Math.floor(inspectResult.score * 10)}
+            defaultRating={10 - Math.floor(inspectResult.score * 10)}
             maxRating={10}
             size="large"
           />
         )}
-     
       </Message>
 
       <Message
