@@ -4,8 +4,11 @@ import {
   Button,
   Divider,
   Form,
+  Icon,
   Label,
   Message,
+  Popup,
+  Rating,
   Segment,
 } from "semantic-ui-react";
 import { Form as FinalForm, Field } from "react-final-form";
@@ -16,13 +19,17 @@ import { ICode } from "../../app/model/code";
 const MyCompiler: React.FC = () => {
   const [code, setCode] = useState<ICode>();
   const store = useContext(UnitStore);
-  const { compiledResult,compileCode } = store;
-  const [refresher, setRefresher] = useState(false);
+  const {
+    compiledResult,
+    compileCode,
+    AICodeInspectAction,
+    inspectResult,
+  } = store;
 
-  const handleInputChange = (event: any) => {
-    // const { name, value } = event.currentTarget;
-    setCode(event.target.value);
-  };
+  // const handleInputChange = (event: any) => {
+  //   // const { name, value } = event.currentTarget;
+  //   setCode(event.target.value);
+  // };
 
   // const handleSubmit = () => {
   //   console.log(code);
@@ -32,7 +39,8 @@ const MyCompiler: React.FC = () => {
 
   const handleFinalFormSubmit = (values: any) => {
     console.log(values.codeStr);
-    compileCode(values.codeStr);
+    compileCode(values);
+    AICodeInspectAction(values);
   };
   return (
     <Segment clearing>
@@ -63,6 +71,24 @@ const MyCompiler: React.FC = () => {
       <p>
         your code: <code>{code}</code>
       </p>
+
+      <Message icon>
+        <Icon name="bug" loading />
+        <Message.Content>
+          <Message.Header>AI code inspection running</Message.Header>
+          Malicious Code Probability:{inspectResult?.score}
+        </Message.Content>
+        {inspectResult != undefined && (
+          <Rating
+            icon="heart"
+            defaultRating={10-Math.floor(inspectResult.score * 10)}
+            maxRating={10}
+            size="large"
+          />
+        )}
+     
+      </Message>
+
       <Message
         success
         icon="inbox"

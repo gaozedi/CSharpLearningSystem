@@ -39,10 +39,10 @@ namespace API.Controllers
         }
 
         [Route("Compiler")]
-        [HttpGet]
-        public ActionResult Compile(string code)
+        [HttpPost]
+        public ActionResult Compile(CodeViewModel code)
         {
-            var result = MyCompiler.Compile(code).ToString();
+            var result = MyCompiler.Compile(code.CodeStr).ToString();
             Console.WriteLine(result);
             return Ok(result);
         }

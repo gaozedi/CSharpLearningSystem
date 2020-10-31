@@ -20,9 +20,7 @@ const App = () => {
     store.loadUnits();
   }, [store]);
 
-  const handleCompile = (code:string)=>{
-    store.compileCode(code);
-  }
+
 
   return (
     <Fragment>

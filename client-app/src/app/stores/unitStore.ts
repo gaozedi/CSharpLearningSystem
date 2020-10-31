@@ -1,3 +1,5 @@
+import { IInspectResult } from './../model/inspectResult';
+import { ICode } from "./../model/code";
 import { ITutorialUnit } from "./../model/unit";
 import { action, configure, observable, runInAction } from "mobx";
 import agent from "../api/agent";
@@ -8,12 +10,12 @@ import { createContext } from "react";
 class UnitStore {
   @observable allunits: ITutorialUnit[] = [];
   @observable unit: ITutorialUnit | undefined = undefined;
-
   //observable for loading indicator
   @observable loadingInitial = false;
   @observable title = "Test for mobx";
   // @observable unitsRegistry = new Map();
   @observable compiledResult = "";
+  @observable inspectResult:IInspectResult | undefined = undefined;
 
   @action loadUnits = async () => {
     try {
@@ -38,7 +40,7 @@ class UnitStore {
       // can get the unit locally, just set this to selected unit.
       this.unit = unit;
     } else {
-      //we can't get an activity, have to call the API
+      //we can't get an unit, have to call the API
       this.loadingInitial = true;
       try {
         unit = await agent.TutorialUnits.details(id);
@@ -59,16 +61,32 @@ class UnitStore {
     return this.allunits.find((a) => a.id == id);
   };
 
-  @action compileCode = async (code: string) => {
+  @action compileCode = async (code: ICode) => {
     try {
       this.compiledResult = await agent.TutorialUnits.compile(code);
-      runInAction("logging",()=>{
+      runInAction("logging", () => {
         console.log(this.compiledResult);
       });
-     
     } catch (error) {
-      runInAction("error", () => {});
+      runInAction("error", () => {
+        console.log(error);
+      });
+    }
+  };
+
+  @action AICodeInspectAction = async (code: ICode) => {
+    try {
+      this.inspectResult = await agent.TutorialUnits.AICodeInspect(code);
+      runInAction("logging", () => {
+        console.log(Math.ceil(this.inspectResult!.score*10));
+      });
+    } catch (error) {
+      runInAction("error", () => {
+        console.log(error);
+      });
     }
   };
 }
+
+
 export default createContext(new UnitStore());

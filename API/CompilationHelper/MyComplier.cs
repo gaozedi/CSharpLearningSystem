@@ -17,7 +17,9 @@ namespace API
         public static string Compile(string code)
         {
             Write("compiler called.");
-            Console.WriteLine(code);
+            Console.WriteLine("input raw code: "+code);
+            var codeIndex = code.Split(";");
+          //  Console.WriteLine(codeIndex[1]);
             string codeToCompile = $@"
             using System;
 
@@ -27,11 +29,18 @@ namespace API
                 {{
                     public string Write(string code)
                     {{
-                        
+                       
                         {code}
                     }}
                 }}
             }}";
+            // int flag = presetCode.IndexOf("//flag");
+            // string codeToCompile=presetCode;
+            // foreach (var line in codeIndex)
+            // {
+            //      codeToCompile = codeToCompile.Insert(flag,line+";" );
+            // }
+            Console.WriteLine(codeToCompile);
 
             Write("Parsing the code into the SyntaxTree");
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(codeToCompile);
