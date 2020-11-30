@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
 namespace Persistence
 {
-    public class DataContext : DbContext
+    public class DataContext: IdentityDbContext<AppUser>
     {
         public DataContext(DbContextOptions options) : base(options)
         {
@@ -11,14 +12,10 @@ namespace Persistence
 
         public DbSet<TutorialUnit> TutorialUnits { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder builder)
-        // {
-        //     builder.Entity<Article>()
-        //         .HasData(
-        //             new Article { Id = 1, Content = "Value 101" },
-        //             new Article { Id = 2, Content = "Value 102" },
-        //             new Article { Id = 3, Content = "Value 103" }
-        //         );
-        // }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+        
     }
 }

@@ -1,13 +1,19 @@
-import { IInspectResult } from './../model/inspectResult';
-import { ICode } from "./../model/code";
-import { ITutorialUnit } from "./../model/unit";
-import { action,  observable, runInAction } from "mobx";
+import { RootStore } from "./rootStore";
+import { IInspectResult } from "../models/inspectResult";
+import { ICode } from "../models/code";
+import { ITutorialUnit } from "../models/unit";
+import { action, observable, runInAction } from "mobx";
 import agent from "../api/agent";
-import { createContext } from "react";
+
 
 //configure({ enforceActions: "always" });
 
-class UnitStore {
+export default class UnitStore {
+  rootStore: RootStore;
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
+  }
+
   @observable allunits: ITutorialUnit[] = [];
   @observable unit: ITutorialUnit | undefined = undefined;
   //observable for loading indicator
@@ -15,7 +21,7 @@ class UnitStore {
 
   // @observable unitsRegistry = new Map();
   @observable compiledResult = "";
-  @observable inspectResult:IInspectResult | undefined = undefined;
+  @observable inspectResult: IInspectResult | undefined = undefined;
 
   @action loadUnits = async () => {
     try {
@@ -78,7 +84,7 @@ class UnitStore {
     try {
       this.inspectResult = await agent.TutorialUnits.AICodeInspect(code);
       runInAction("logging", () => {
-        console.log(Math.ceil(this.inspectResult!.score*10));
+        console.log(Math.ceil(this.inspectResult!.score * 10));
       });
     } catch (error) {
       runInAction("error", () => {
@@ -88,5 +94,4 @@ class UnitStore {
   };
 }
 
-
-export default createContext(new UnitStore());
+//export default createContext(new UnitStore());

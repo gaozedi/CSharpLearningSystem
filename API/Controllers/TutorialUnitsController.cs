@@ -8,34 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using MediatR;
 using Application.TutorialUnits;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TutorialUnitsController : ControllerBase
-    {
-        private readonly IMediator _mediator;
 
-        public TutorialUnitsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    public class TutorialUnitsController : BaseController
+    {
 
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TutorialUnit>>> List()
         {
             //send message to List Handler
-            return await _mediator.Send(new List.Query());
+            return await Mediator.Send(new List.Query());
         }
-
+        
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TutorialUnit>> Details(int id)
         {
             //send message to List Handler
-            return await _mediator.Send(new Details.Query { Id = id });
+            return await Mediator.Send(new Details.Query { Id = id });
         }
 
         [Route("Compiler")]

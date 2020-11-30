@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Models;
 using Persistence;
 
 namespace API
@@ -27,8 +29,9 @@ namespace API
                     var context = services.GetRequiredService<DataContext>();
                     //Applies any pending migrations for the context to the database,
                     //will create the database if it dose already not exist.
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     context.Database.Migrate();
-                    Seed.SeedData(context);
+                  Seed.SeedData(context,userManager).Wait();
                 }
                 catch (System.Exception ex)
                 {

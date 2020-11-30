@@ -15,7 +15,7 @@ const HomePage = () => {
           />
           Visual C#
         </Header>
-        <Header as="h2" inverted content="pronounced as 'sharp', obviuosly." />
+        <Header as="h2" inverted content="# pronounced as 'sharp', obviuosly" />
         <Button as={Link} to="/tutorialUnits" size="huge" inverted >
           Begin My Journey
         </Button>

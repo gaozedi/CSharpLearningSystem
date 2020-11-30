@@ -11,17 +11,18 @@ import {
 import { Form as FinalForm, Field } from "react-final-form";
 import UnitStore from "../../app/stores/unitStore";
 import TextAreaInput from "../../app/common/form/TextAreaInput";
-import { ICode } from "../../app/model/code";
+import { ICode } from "../../app/models/code";
+import { RootStoreContext } from "../../app/stores/rootStore";
 
 const MyCompiler: React.FC = () => {
   const [code] = useState<ICode>();
-  const store = useContext(UnitStore);
+  const store = useContext(RootStoreContext);
   const {
     compiledResult,
     compileCode,
     AICodeInspectAction,
     inspectResult,
-  } = store;
+  } = store.unitStore;
 
   // const handleInputChange = (event: any) => {
   //   // const { name, value } = event.currentTarget;

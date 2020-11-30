@@ -10,6 +10,7 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {vs} from 'react-syntax-highlighter/dist/esm/styles/prism'
 //import { prism } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import MyCompiler from "../../compiler/MyCompiler";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 interface DetailParams {
   id: string;
@@ -24,9 +25,9 @@ interface IProps {
 const UnitDetails: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
 }) => {
-  const store = useContext(unitStore);
+  const rootStore = useContext(RootStoreContext);
   //we can set a alia by using ":"
-  const { unit, loadOneUnit, loadingInitial } = store;
+  const { unit, loadOneUnit, loadingInitial } = rootStore.unitStore;
 
   const renderers = {
     code: ({language, value}:IProps) => {

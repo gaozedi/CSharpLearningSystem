@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Models;
 using MediatR;
 using Persistence;
+using Application.Errors;
 
 namespace Application.TutorialUnits
 {
@@ -36,7 +37,7 @@ namespace Application.TutorialUnits
                 {
                     //  throw new Exception("Could not find activity");
                     //use the RestException we created
-                    throw new Exception("server error from Details.cs");
+                    throw new RestException(HttpStatusCode.NotFound,new {Unit="Not Found"});
                 }
                 
                 return activity;

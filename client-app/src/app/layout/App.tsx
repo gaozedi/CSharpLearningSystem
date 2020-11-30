@@ -3,26 +3,40 @@ import { Container } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import NavBar from "../../features/nav/NavBar";
 import { UnitDashboard } from "../../features/Units/dashboard/UnitDashboard";
-import UnitStore from "../stores/unitStore";
 import { observer } from "mobx-react-lite";
-
 import { Route } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import UnitDetails from "../../features/Units/details/UnitDetails";
 import MyCompiler from "../../features/compiler/MyCompiler";
+import { RootStoreContext } from "../stores/rootStore";
+import LoginForm from "../../features/user/LoginForm";
+import NotFound from "./NotFound";
+import { ToastContainer } from "react-toastify";
+import LoadingComponent from "./LoadingComponent";
 
 const App = () => {
-
-  const store = useContext(UnitStore);
-
+  const rootStore = useContext(RootStoreContext);
+  const { setAppLoaded, token,appLoaded } = rootStore.commonStore;
+  const { getUser } = rootStore.userStore;
+  //check if we have a token, if we have, get the user from api,
+  //if we don't have a token, set the app as loaded
+  //only return the app whe AppLoaded is true.
   useEffect(() => {
-    store.loadUnits();
-  }, [store]);
+    if (token) {
+      getUser().finally(() => setAppLoaded());
+    } else {
+      setAppLoaded();
+    }
+  }, [getUser, setAppLoaded, token]);
 
-
+  if (!appLoaded) {
+    return <LoadingComponent content='loading app'/>
+  }
+  
 
   return (
     <Fragment>
+      <ToastContainer position='top-center'/>
       <Route exact path="/" component={HomePage} />
       {/* when we are hitting the route with / and anything else, then the route matches*/}
       <Route
@@ -42,6 +56,8 @@ const App = () => {
                 component={ActivityForm}
               /> */}
                <Route path="/compiler" component={MyCompiler} />
+               <Route path="/login" component={LoginForm} />
+               {/* <Route component={NotFound} /> */}
             </Container>
           </Fragment>
         )}

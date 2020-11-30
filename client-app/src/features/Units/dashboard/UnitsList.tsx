@@ -1,13 +1,21 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Item, Label, Segment } from "semantic-ui-react";
-import UnitStore from "../../../app/stores/unitStore";
+import { RootStoreContext } from "../../../app/stores/rootStore";
 
 const UnitsList: React.FC = () => {
-  const unitStore = useContext(UnitStore);
-  //insead of using activities directly, we use computed value activitiesByDate
-  const { allunits } = unitStore;
+  const rootStore = useContext(RootStoreContext);
+  const { allunits,loadUnits } = rootStore.unitStore;
+
+  useEffect(() => {
+    loadUnits();
+    //need to specify the dependencies in dependenciy array below
+  }, [loadUnits]);
+  //we are also observing loading initial below
+  // if (loadingInitial) {
+  //   return <LoadingComponent content="Loading activities..." />;
+  // }
 
   return (
     <Segment clearing>
