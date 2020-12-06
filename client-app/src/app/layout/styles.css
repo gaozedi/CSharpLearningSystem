@@ -44,3 +44,7 @@ body {
 }
 
 /*end home page styles*/
+.bgpattern{
+  background-image:  radial-gradient(gray 1px, transparent 0);
+  background-size: 20px 20px, 20px 20px;
+}

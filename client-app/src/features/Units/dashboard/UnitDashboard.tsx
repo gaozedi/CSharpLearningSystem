@@ -1,19 +1,28 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Card,
+  Container,
+  Feed,
   Grid,
   Header,
   Icon,
   Image,
+  Message,
+  Reveal,
   Segment,
 } from "semantic-ui-react";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import LoginForm from "../../user/LoginForm";
 import UnitsList from "./UnitsList";
 
 //in order to use the interface above, we neet to give our component a type, then we can use props object
 //in our component
 export const UnitDashboard: React.FC = () => {
+  const rootStore = useContext(RootStoreContext);
+  const { user } = rootStore.userStore;
+
   return (
     <Grid>
       <Grid.Column width={16}>
@@ -26,8 +35,8 @@ export const UnitDashboard: React.FC = () => {
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
                   By using the technologies of ReactJS, .NET Core, AI and
-                  Machine Learning, Cloud and Container, We can give you superpower
-                  to learn C#
+                  Machine Learning, Cloud and Container, We can give you
+                  superpower to learn C#
                 </p>
                 <Header as="h3" style={{ fontSize: "2em" }}>
                   We Make Bananas That Can Dance
@@ -60,7 +69,6 @@ export const UnitDashboard: React.FC = () => {
                     </a>
                   </Card.Content>
                 </Card>
-                
               </Grid.Column>
               <Grid.Column floated="right" width={4}>
                 <Card>
@@ -75,7 +83,8 @@ export const UnitDashboard: React.FC = () => {
                       <span className="date">Supervisor</span>
                     </Card.Meta>
                     <Card.Description>
-                      Dr George is a developer with <strong>millions</strong> of years experience.
+                      Dr George is a developer with <strong>millions</strong> of
+                      years experience.
                     </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
@@ -85,7 +94,6 @@ export const UnitDashboard: React.FC = () => {
                     </a>
                   </Card.Content>
                 </Card>
-                
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -96,9 +104,27 @@ export const UnitDashboard: React.FC = () => {
           </Grid>
         </Segment>
       </Grid.Column>
-      <Grid.Column width={16}>
-        <UnitsList />
-      </Grid.Column>
+
+      <Grid.Row centered>
+        {user ? (
+          <Grid.Column width={16}>
+            <UnitsList />
+          </Grid.Column>
+        ) : (
+          <Grid.Column width={16}>
+            <Reveal animated="move up">
+              <Reveal.Content visible>
+                <Image src='/assets/login_bg2.jpg'/>
+  
+              </Reveal.Content>
+              <Reveal.Content hidden>
+                <LoginForm />
+              </Reveal.Content>
+            </Reveal>
+          </Grid.Column>
+        )}
+      </Grid.Row>
+
       {/* <Grid.Column width={4}>
       
       </Grid.Column> */}
