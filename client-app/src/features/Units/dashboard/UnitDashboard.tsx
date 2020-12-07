@@ -65,7 +65,7 @@ export const UnitDashboard: React.FC = () => {
                   <Card.Content extra>
                     <a href="/">
                       <Icon name="user" />
-                      22 People liked
+                      0 People liked
                     </a>
                   </Card.Content>
                 </Card>
@@ -78,7 +78,7 @@ export const UnitDashboard: React.FC = () => {
                     ui={false}
                   />
                   <Card.Content>
-                    <Card.Header>Dr George Pissanidis</Card.Header>
+                    <Card.Header>Dr. George Pissanidis</Card.Header>
                     <Card.Meta>
                       <span className="date">Supervisor</span>
                     </Card.Meta>
@@ -90,7 +90,7 @@ export const UnitDashboard: React.FC = () => {
                   <Card.Content extra>
                     <a href="/">
                       <Icon name="user" />
-                      22 People liked
+                      0 People liked
                     </a>
                   </Card.Content>
                 </Card>
@@ -112,10 +112,38 @@ export const UnitDashboard: React.FC = () => {
           </Grid.Column>
         ) : (
           <Grid.Column width={16}>
-            <Reveal animated="move up">
+            <Reveal animated="move right">
               <Reveal.Content visible>
-                <Image src='/assets/login_bg2.jpg'/>
-  
+                {/* <Image src='/assets/head.jpg'/> */}
+                <Card fluid>
+                  <Image src="/assets/blue.png" wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header textAlign="center">Join Us Now!</Card.Header>
+                    <Message floating icon>
+                      <Icon name="circle notched" loading />
+                      <Message.Content>
+                        <Message.Header>API Is Avaliable Now</Message.Header>
+                        <p>
+                        To ensure user experience, only limited user allow accessing AI API and Video Streaming API. 
+                        <br/>
+                        (Maybe we can ask for some money because of this in real scenario)
+                        </p>
+                      </Message.Content>
+                    </Message>
+                    <br/>
+                    <Card.Meta textAlign="right">Current Online Users:1</Card.Meta>
+                    
+                    {/* <Card.Description textAlign="right">
+                      1
+                    </Card.Description> */}
+               
+                    {/* <a>
+                      <Icon name="user" />
+                      10 Friends
+                    </a> */}
+
+                  </Card.Content>
+                </Card>
               </Reveal.Content>
               <Reveal.Content hidden>
                 <LoginForm />
