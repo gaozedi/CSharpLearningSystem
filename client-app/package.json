@@ -1,0 +1,59 @@
+{
+  "name": "client-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fluentui/react": "^7.155.3",
+    "@fluentui/react-theme-provider": "^0.18.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.67",
+    "@types/react": "^16.9.51",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-motion": "0.0.29",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/react-syntax-highlighter": "^13.5.0",
+    "@uifabric/example-data": "^7.1.5",
+    "@uifabric/react-cards": "^0.115.4",
+    "axios": "^0.20.0",
+    "final-form": "^4.20.1",
+    "framer-motion": "^2.9.5",
+    "mobx": "^5.10.1",
+    "mobx-react-lite": "^1.4.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-final-form": "^6.3.0",
+    "react-markdown": "^5.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "react-syntax-highlighter": "^15.2.1",
+    "react-toastify": "^6.1.0",
+    "remark-gfm": "^1.0.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.0",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

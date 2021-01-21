@@ -1,0 +1,87 @@
+/* body {
+  background-color: rgb(234, 234, 234) !important;
+} */
+
+.ui.inverted.top.fixed.menu {
+  background-image: linear-gradient(
+    135deg,
+    rgb(24, 42, 115) 0%,
+    rgb(33, 138, 174) 69%,
+    rgb(32, 167, 172) 89%
+  ) !important;
+}
+
+/*home page styles*/
+
+.masthead {
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(
+    135deg,
+    rgb(24, 42, 115) 0%,
+    rgb(33, 138, 174) 69%,
+    rgb(32, 167, 172) 89%
+  ) !important;
+  height: 100vh;
+}
+
+.masthead .ui.menu .ui.button,
+.ui.menu a.ui.inverted.button {
+
+  margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+
+  font-size: 4em;
+  font-weight: normal;
+}
+
+.masthead h2 {
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+/*end home page styles*/
+.bgpattern{
+  background-image:  radial-gradient(gray 1px, transparent 0);
+  background-size: 20px 20px, 20px 20px;
+}
+
+
+/* New UI */
+.rainbow {
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
+
+/* .col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+* {
+  box-sizing: border-box;
+} */
