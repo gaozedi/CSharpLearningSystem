@@ -13,7 +13,11 @@ import {
 import MyCompiler from "../../compiler/MyCompiler";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import {
+  Breadcrumb,
+  DefaultPalette,
+  IBreadcrumbItem,
   initializeIcons,
+  IStackItemStyles,
   IStackStyles,
   IStackTokens,
   ProgressIndicator,
@@ -21,7 +25,7 @@ import {
 } from "@fluentui/react";
 import { ThemeProvider } from "@fluentui/react-theme-provider";
 import { darkTheme, lightTheme } from "../../../themes";
-
+import { Text } from "office-ui-fabric-react/lib/Text";
 import NavBarNew from "../../nav/NavBarNew";
 
 interface DetailParams {
@@ -45,6 +49,36 @@ const stackTokens: IStackTokens = {
   childrenGap: 10,
   padding: 30,
 };
+
+const stackItemStyles: IStackItemStyles = {
+  root: {
+    // alignItems: "center",
+    background: DefaultPalette.blue,
+    color: DefaultPalette.white,
+    // display: "flex",
+    height: 45,
+    // justifyContent: "center",
+    alignContent: "center",
+    textIndent: "110",
+  },
+};
+
+const itemsWithHref: IBreadcrumbItem[] = [
+  // Normally each breadcrumb would have a unique href, but to make the navigation less disruptive
+  // in the example, it uses the breadcrumb page as the href for all the items
+  { text: "Home", key: "Files", href: "/NewUI" },
+  { text: "C# Learning", key: "f3", href: "/NewUI" },
+  { text: "Tutorial Units", key: "f1", href: "#/controls/web/breadcrumb" },
+  {
+    text: "Tutorial Unit 1",
+    key: "f2",
+    href: "#",
+    isCurrentItem: true,
+  },
+  // { text: 'Folder 3', key: 'f3', href: '#/controls/web/breadcrumb' },
+  // { text: 'Folder 4 (non-clickable)', key: 'f4' },
+  // { text: 'Folder 5', key: 'f5', href: '#/controls/web/breadcrumb'},
+];
 
 //use interface DetailParams to specify the route parameter is "id", otherwise we can't `use match.params.id`
 const UnitDetails: React.FC<RouteComponentProps<DetailParams>> = ({
@@ -112,37 +146,33 @@ class Program
     return <LoadingComponent content="Loading one unit..." />;
 
   return (
-    // <Card fluid>
-    //   {/* we use ! mark to tell TS we won't get null here */}
-    //   {/* <Image
-    //     src={`/assets/logo.png`}
-    //     wrapped
-    //     ui={false}
-    //   /> */}
-    //   <Card.Content>
-    //     <Card.Header>{unit!.id}</Card.Header>
-    //     <Card.Meta>
-    //       <span>{unit!.content}</span>
-    //     </Card.Meta>
-    //     <Card.Description>{unit!.content}</Card.Description>
-    //   </Card.Content>
-    //   <Card.Content extra>
-    //     <Button.Group widths={2}>
-
-    //       {/* <Button
-    //         onClick={() => openEditForm(activity!.id)}
-    //         basic
-    //         color="blue"
-    //         content="Edit"
-    //       />
-    //     */}
-    //     </Button.Group>
-    //   </Card.Content>
-    // </Card>
     <ThemeProvider applyTo="body" theme={useDarkMode ? darkTheme : lightTheme}>
       <NavBarNew />
       <ProgressIndicator />
+
       <Stack styles={stackStyles} tokens={stackTokens} wrap>
+        <Stack.Item>
+          <Stack horizontal horizontalAlign="space-between">
+            <Stack.Item>
+              <Breadcrumb
+                items={itemsWithHref}
+                maxDisplayedItems={3}
+                ariaLabel="Breadcrumb with items rendered as links"
+                overflowAriaLabel="More links"
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Text variant="xxLargePlus">
+                &nbsp;&nbsp;&nbsp;&nbsp;Tutorial Unit 1
+              </Text>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        {/* <Stack.Item styles={stackItemStyles}>
+          <Text variant="xxLargePlus">
+            &nbsp;&nbsp;&nbsp;&nbsp;Tutorial Unit 1
+          </Text>
+        </Stack.Item> */}
         <Stack.Item>
           <ReactMarkdown
             plugins={[gfm]}
@@ -154,6 +184,42 @@ class Program
           <MyCompiler />
         </Stack.Item>
       </Stack>
+      
+      <Stack
+        horizontal
+        style={{
+          paddingLeft: "12%",
+          background: "rgb(204, 230, 255)",
+        }}
+        gap="12%"
+        wrap
+      >
+        <Stack.Item grow={4}>
+          <Text style={{ fontSize: 50, fontWeight: 500, paddingLeft: "5%" }}>
+            C# Learning
+          </Text>
+        </Stack.Item>
+        <Stack.Item grow={4}>
+          {/* <Text variant='mega'>
+          "
+          </Text> */}
+          <Text variant="xLarge">
+            "True beauty
+            <br />
+            is something that attacks,
+          </Text>
+          <Text variant="xLarge">
+            <br />
+            overpowers,
+            <br /> robs,
+            <br /> and finally
+            <br />
+            destroys."
+            <br />
+          </Text>
+        </Stack.Item>
+      </Stack>
+
     </ThemeProvider>
   );
 };

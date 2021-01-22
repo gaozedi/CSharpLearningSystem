@@ -4,20 +4,24 @@ import {
   ICommandBarItemProps,
   ICommandBarStyles,
 } from "office-ui-fabric-react/lib/CommandBar";
-import { IButtonProps } from "office-ui-fabric-react/lib/Button";
+import { IButtonProps, PrimaryButton } from "office-ui-fabric-react/lib/Button";
 import {
   Coachmark,
+  DefaultButton,
   DirectionalHint,
+  Icon,
+  IContextualMenuProps,
   IDropdownOption,
   IStackItemStyles,
   IStackStyles,
   IStackTokens,
+  mergeStyles,
   Stack,
   TeachingBubbleContent,
   Toggle,
 } from "@fluentui/react";
 import DialogForm from "../../app/common/form/DialogForm";
-import { Text } from "office-ui-fabric-react/lib/Text";
+import { Link, Text } from "office-ui-fabric-react";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import { useBoolean } from "@uifabric/react-hooks";
@@ -27,8 +31,7 @@ const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 const NavBarNew: React.FunctionComponent = () => {
   const rootStore = React.useContext(RootStoreContext);
   const { setDarkMode } = rootStore.commonStore;
-
-
+  const { isLoggedIn, logout } = rootStore.userStore;
 
   const targetButton = React.useRef<HTMLDivElement>(null);
   const [
@@ -39,6 +42,32 @@ const NavBarNew: React.FunctionComponent = () => {
     coachmarkPosition,
     setCoachmarkPosition,
   ] = React.useState<DirectionalHint>(DirectionalHint.bottomCenter);
+
+  const menuProps: IContextualMenuProps = {
+    items: [
+      {
+        key: "logout",
+        text: "Logout",
+        iconProps: { iconName: "Leave" },
+        onClick: logout,
+      },
+      {
+        key: "accountCenter",
+        text: "Account Center",
+        iconProps: { iconName: "PlayerSettings" },
+      },
+    ],
+  };
+
+  function _alertClicked() {
+    alert("Clicked");
+  }
+  const iconClass = mergeStyles({
+    fontSize: 25,
+    height: 25,
+    width: 25,
+    margin: "0 25px",
+  });
 
   const positioningContainerProps = React.useMemo(
     () => ({
@@ -73,22 +102,38 @@ const NavBarNew: React.FunctionComponent = () => {
             styles={commandBarStyles}
           />
         </Stack.Item>
-        <Stack.Item grow styles={stackItemStyles} align="center">
-          <Toggle
+        <Stack.Item styles={stackItemStyles}>
+          {/* <Toggle
             // label="Change themes"
             onText="Dark Mode"
             offText="Light Mode"
             onChange={() => setDarkMode()}
+          /> */}
+          <Icon
+            // secondaryText="Opens the Sample Dialog"
+            onClick={setDarkMode}
+            className={iconClass}
+            iconName="Sunny"
           />
         </Stack.Item>
-        <Stack.Item grow styles={stackItemStyles} align="auto">
-        <div ref={targetButton}>
-          <DialogForm />
-    </div>
-          {/* <DefaultButton
-            onClick={showCoachmark}
-            text={isCoachmarkVisible ? "Hide coachmark" : "Show coachmark"}
-          /> */}
+        <Stack.Item grow styles={stackItemStyles}>
+          {isLoggedIn ? (
+            <DefaultButton
+              text="MyAccount"
+              primary
+              split
+              splitButtonAriaLabel="See 2 options"
+              aria-roledescription="split button"
+              menuProps={menuProps}
+              onClick={_alertClicked}
+              // disabled={disabled}
+              // checked={checked}
+            />
+          ) : (
+            <div ref={targetButton}>
+              <DialogForm />
+            </div>
+          )}
         </Stack.Item>
         {isCoachmarkVisible && (
           <Coachmark
@@ -110,7 +155,7 @@ const NavBarNew: React.FunctionComponent = () => {
               ariaDescribedBy="example-description1"
               ariaLabelledBy="example-label1"
             >
-             Click here to login or join the C# journey
+              Click here to login or join the C# journey
             </TeachingBubbleContent>
           </Coachmark>
         )}
@@ -132,7 +177,7 @@ const stackItemStyles: IStackItemStyles = {
     //  background: DefaultPalette.themePrimary,
     //  color: DefaultPalette.white,
     display: "flex",
-    height: 40,
+    height: 10,
     justifyContent: "center",
   },
 };

@@ -17,7 +17,12 @@ import NewHomePage from "../NewUI/NewHomePage";
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
-  const { setAppLoaded, token,appLoaded,setCoachMark } = rootStore.commonStore;
+  const {
+    setAppLoaded,
+    token,
+    appLoaded,
+    setCoachMark,
+  } = rootStore.commonStore;
   const { getUser } = rootStore.userStore;
   //check if we have a token, if we have, get the user from api,
   //if we don't have a token, set the app as loaded
@@ -25,20 +30,19 @@ const App = () => {
   useEffect(() => {
     if (token) {
       getUser().finally(() => setAppLoaded());
-setCoachMark();
+      setCoachMark();
     } else {
       setAppLoaded();
     }
   }, [getUser, setAppLoaded, token]);
 
   if (!appLoaded) {
-    return <LoadingComponent content='loading app'/>
+    return <LoadingComponent content="loading app" />;
   }
-  
 
   return (
     <Fragment>
-      <ToastContainer position='top-center'/>
+      <ToastContainer position="top-center" />
       <Route exact path="/" component={HomePage} />
       <Route exact path="/newUI" component={NewHomePage} />
       <Route exact path="/tutorialunits/:id" component={UnitDetails} />
@@ -59,9 +63,9 @@ setCoachMark();
                 path={["/createActivity", "/manage/:id"]}
                 component={ActivityForm}
               /> */}
-               <Route path="/compiler" component={MyCompiler} />
-               <Route path="/login" component={LoginForm} />
-               {/* <Route component={NotFound} /> */}
+              <Route path="/compiler" component={MyCompiler} />
+              <Route path="/login" component={LoginForm} />
+              {/* <Route component={NotFound} /> */}
             </Container>
           </Fragment>
         )}

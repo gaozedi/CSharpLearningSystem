@@ -57,6 +57,14 @@
   -webkit-background-clip: text;
   background-clip: text;
 }
+
+/* New UI */
+.rainbowbg {
+  background-color: -webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
+  color:-webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 html {
   overflow: scroll;
   overflow-x: hidden;

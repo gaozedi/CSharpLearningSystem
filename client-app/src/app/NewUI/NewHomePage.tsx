@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ThemeProvider } from "@fluentui/react-theme-provider";
 import {
-
   IStackStyles,
   IStackTokens,
   ProgressIndicator,
@@ -20,7 +19,6 @@ import UnitsListNew from "./UnitsListNew";
 import { observer } from "mobx-react-lite";
 import NavBarNew from "../../features/nav/NavBarNew";
 import { RootStoreContext } from "../stores/rootStore";
-
 
 // Styles definition
 const stackStyles: IStackStyles = {
@@ -51,23 +49,23 @@ const NewHomePage: React.FC = () => {
   const { useDarkMode } = rootStore.commonStore;
 
   initializeIcons();
-  
+
   return (
     <ThemeProvider applyTo="body" theme={useDarkMode ? darkTheme : lightTheme}>
+      <NavBarNew />
 
-          <NavBarNew />
-    
       <ProgressIndicator />
-      <Stack tokens={stackTokens} >
+      <Stack tokens={stackTokens}>
         <Stack.Item>
           <Stack
             horizontal
             verticalAlign="center"
             horizontalAlign="space-around"
             gap={"10%"}
+            style={{  paddingTop: "5%"}}
           >
             <Stack.Item grow={2}>
-              <Text style={{ fontSize: 180, paddingLeft: "5%" }}>My</Text>
+              <Text style={{ fontSize: 180, paddingLeft: "5%"}}>My</Text>
               <Text className="rainbow" style={{ fontSize: 200 }}>
                 Home
               </Text>
@@ -155,7 +153,6 @@ const NewHomePage: React.FC = () => {
       </div>
       </div> */}
       <UnitsListNew />
-
     </ThemeProvider>
   );
 };

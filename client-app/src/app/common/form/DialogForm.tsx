@@ -66,7 +66,7 @@ const DialogForm: React.FC = () => {
         // secondaryText="Opens the Sample Dialog"
         onClick={toggleHideDialog}
         className={iconClass}
-        iconName="Contact"
+        iconName="SignIn"
       />
 
       <Dialog
