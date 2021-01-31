@@ -1,20 +1,25 @@
 import {
   CompoundButton,
-  DefaultButton,
   IStackTokens,
-  PrimaryButton,
+  Rating,
+  RatingSize,
   Stack,
   TextField,
 } from "@fluentui/react";
-import { Stats } from "fs";
 import { observer } from "mobx-react-lite";
-import React, { FormEvent, useContext, useState } from "react";
-
-import { Form as FinalForm, Field, Form } from "react-final-form";
-import TextAreaInput from "../../app/common/form/TextAreaInput";
+import React, { useContext, useState } from "react";
 import { ICode } from "../../app/models/code";
 import { RootStoreContext } from "../../app/stores/rootStore";
 
+import { Card, ICardTokens, ICardSectionTokens } from "@uifabric/react-cards";
+import {
+  FontWeights,
+  Icon,
+  IIconStyles,
+  Text,
+  ITextStyles,
+} from "office-ui-fabric-react";
+import {  GooSpinner } from "react-spinners-kit";
 
 // Tokens definition
 const stackTokens: IStackTokens = {
@@ -32,72 +37,127 @@ const MyCompiler: React.FC = () => {
     inspectResult,
   } = store.unitStore;
 
-  // const handleInputChange = (event: any) => {
-  //   // const { name, value } = event.currentTarget;
-  //   setCode(event.target.value);
-  // };
-
-  // const handleSubmit = () => {
-  //   console.log(code);
-  //   store.compileCode(code);
-  //   //setRefresher(!refresher);
-  // };
-
   const sendCompile = () => {
     const codeToCompile: ICode = {
       codeStr: code,
     };
-    console.log(codeToCompile);
-     compileCode(codeToCompile);
-    // AICodeInspectAction(values);
+    compileCode(codeToCompile);
+    AICodeInspectAction(codeToCompile);
   };
   const hanldeCodeChange = (e: any) => {
     setCode(e.target.value);
   };
+  const iconStyles: IIconStyles = {
+    root: {
+      fontSize: "24px",
+      height: "24px",
+      width: "24px",
+    },
+  };
   return (
-    <Stack  tokens={stackTokens}>
+    <Stack tokens={stackTokens} horizontal>
       <Stack.Item>
-        <TextField
-          label="Input Your Code"
-          multiline
-          autoAdjustHeight
-          onChange={hanldeCodeChange}
-          value={code}
-        />
+        <Stack tokens={stackTokens}>
+          <Stack.Item>
+            <Text styles={titleTextStyles} variant="xxLargePlus">
+              Built-in Compiler
+            </Text>
+          </Stack.Item>
+
+          <Stack.Item>
+            <TextField
+              multiline
+              rows={7}
+              autoAdjustHeight
+              onChange={hanldeCodeChange}
+              value={code}
+            />
+          </Stack.Item>
+          <Stack.Item align="end">
+            <CompoundButton
+              primary
+              secondaryText="Send Code to Online Compiler and AICodeInspection API."
+              onClick={sendCompile}
+            >
+              Compile
+            </CompoundButton>
+          </Stack.Item>
+        </Stack>
       </Stack.Item>
+
       <Stack.Item>
-        <CompoundButton primary secondaryText="Send Code to Online Compiler and AICodeInspection API." onClick={sendCompile}>Compile</CompoundButton>
+        <Card
+          aria-label="Clickable vertical card with image bleeding at the top of the card"
+          tokens={cardTokens}
+        >
+          <Card.Section
+            fill
+            verticalAlign="end"
+            tokens={backgroundImageCardSectionTokens}
+          >
+            <Text variant="large" styles={titleTextStyles}>
+              Security Score
+            </Text>
+            <Text variant="superLarge" styles={titleTextStyles}>
+              {inspectResult?.score
+                ? 100 - Math.floor(inspectResult.score * 100)
+                : 0}
+            </Text>
+          </Card.Section>
+          <Card.Section>
+            <Text variant="large" styles={titleTextStyles}>
+              Compiled Result
+            </Text>
+            <Text variant="xxLargePlus" styles={titleTextStyles}>
+              {compiledResult ? compiledResult : "Not Compiled"}
+            </Text>
+          </Card.Section>
+          <Card.Section tokens={agendaCardSectionTokens}>
+            <Text variant="large">Code Quality:</Text>
+            {inspectResult !== undefined ? (
+              <>
+              <br />
+              <Rating
+                rating={5 - Math.floor(inspectResult.score * 5)}
+                size={RatingSize.Large}
+                ariaLabelFormat={"Select {0} of {1} stars"}
+                color="#3498DB"
+              />
+              </>
+            ) : (
+              <>
+                <GooSpinner color="cornflowerblue" />
+                <Text variant="large">API Standing by</Text>
+              </>
+            )}
+          </Card.Section>
+          <Card.Item grow={1}>
+            {/* {inspectResult?.prediction}
+            {inspectResult?.score} */}
+          </Card.Item>
+
+          <Card.Section horizontal tokens={footerCardSectionTokens}>
+            <Icon iconName="RedEye" styles={iconStyles} />
+            <Icon iconName="SingleBookmark" styles={iconStyles} />
+            <Stack.Item grow={1}>
+              <Text variant="large"></Text>
+            </Stack.Item>
+            <Icon iconName="MoreVertical" styles={iconStyles} />
+          </Card.Section>
+        </Card>
       </Stack.Item>
-
-      <br />
-      <p>
-        your code: <code>{code}</code>
-      </p>
-
-      {/* <Message icon>
-        <Icon name="bug" loading />
-        <Message.Content>
-          <Message.Header>AI code inspection running</Message.Header>
-          Malicious Code Probability:{inspectResult?.score}
-        </Message.Content>
-        {inspectResult !== undefined && (
-          <Rating
-            icon="heart"
-            defaultRating={10 - Math.floor(inspectResult.score * 10)}
-            maxRating={10}
-            size="large"
-          />
-        )}
-      </Message>
-
-      <Message
-        success
-        icon="inbox"
-        header=" Compiled Result:"
-        content={compiledResult}
-      /> */}
-      <Stack.Item>Result: {compiledResult}</Stack.Item>
     </Stack>
   );
 };
 export default observer(MyCompiler);
+const titleTextStyles: ITextStyles = {
+  root: {
+    //  color: '#3F36E3',
+    fontWeight: FontWeights.semibold,
+  },
+};
+
+const cardTokens: ICardTokens = { childrenMargin: 12 };
+const footerCardSectionTokens: ICardSectionTokens = { padding: "12px 0px 0px" };
+const backgroundImageCardSectionTokens: ICardSectionTokens = { padding: 12 };
+const agendaCardSectionTokens: ICardSectionTokens = { childrenGap: 0 };

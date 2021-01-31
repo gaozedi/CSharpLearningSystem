@@ -4,28 +4,28 @@ import {
   ICommandBarItemProps,
   ICommandBarStyles,
 } from "office-ui-fabric-react/lib/CommandBar";
-import { IButtonProps, PrimaryButton } from "office-ui-fabric-react/lib/Button";
+import { IButtonProps } from "office-ui-fabric-react/lib/Button";
 import {
   Coachmark,
   DefaultButton,
   DirectionalHint,
+  FontIcon,
   Icon,
   IContextualMenuProps,
-  IDropdownOption,
   IStackItemStyles,
   IStackStyles,
   IStackTokens,
   mergeStyles,
   Stack,
   TeachingBubbleContent,
-  Toggle,
 } from "@fluentui/react";
 import DialogForm from "../../app/common/form/DialogForm";
-import { Link, Text } from "office-ui-fabric-react";
+import { Text } from "office-ui-fabric-react";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import { useBoolean } from "@uifabric/react-hooks";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 const overflowProps: IButtonProps = { ariaLabel: "More commands" };
 
 const NavBarNew: React.FunctionComponent = () => {
@@ -33,15 +33,20 @@ const NavBarNew: React.FunctionComponent = () => {
   const { setDarkMode } = rootStore.commonStore;
   const { isLoggedIn, logout } = rootStore.userStore;
 
+  const history = useHistory();
+
+  const gotoPath = (path:string): void => {
+    history.push(path);
+  };
+
   const targetButton = React.useRef<HTMLDivElement>(null);
   const [
     isCoachmarkVisible,
     { setFalse: hideCoachmark, setTrue: showCoachmark },
   ] = useBoolean(false);
-  const [
-    coachmarkPosition,
-    setCoachmarkPosition,
-  ] = React.useState<DirectionalHint>(DirectionalHint.bottomCenter);
+  const [coachmarkPosition] = React.useState<DirectionalHint>(
+    DirectionalHint.bottomCenter
+  );
 
   const menuProps: IContextualMenuProps = {
     items: [
@@ -69,6 +74,13 @@ const NavBarNew: React.FunctionComponent = () => {
     margin: "0 25px",
   });
 
+  const iconClassBig = mergeStyles({
+    fontSize: 60,
+    height: 60,
+    width: 60,
+    margin: "0 25px",
+  });
+
   const positioningContainerProps = React.useMemo(
     () => ({
       directionalHint: coachmarkPosition,
@@ -89,8 +101,9 @@ const NavBarNew: React.FunctionComponent = () => {
         tokens={stackTokens}
         wrap
       >
-        <Stack.Item grow={1} align="center">
-          <Text variant="xLarge">LESLIE UI DESIGN</Text>
+        <Stack.Item grow={1} styles={stackItemStyles}>
+          <FontIcon iconName="CSharp" className={iconClassBig} onClick={()=>gotoPath("/")}/>
+          <Text  onClick={()=>gotoPath("/")} variant="xxLarge" >Learning</Text>
         </Stack.Item>
         <Stack.Item grow={2} styles={stackItemStyles}>
           <CommandBar
@@ -196,46 +209,72 @@ const commandBarStyles: ICommandBarStyles = {
 
 const _items: ICommandBarItemProps[] = [
   {
-    key: "newItem",
-    text: "ITEM1",
+    key: "tutorialUnits",
+    text: "UNITS",
     cacheKey: "myCacheKey", // changing this key will invalidate this item's cache
     split: true,
-    iconProps: { iconName: "Add" },
-
+    iconProps: { iconName: "AllApps" },
+    href: "/tutorialUnits",
     subMenuProps: {
       items: [
         {
-          key: "emailMessage",
-          text: "Email message",
-          iconProps: { iconName: "Mail" },
-          ["data-automation-id"]: "newEmailButton", // optional
+          key: "Unit1",
+          text: "UNIT 1",
+          iconProps: { iconName: "Edit" },
+          href: "/tutorialUnits/1",
         },
         {
-          key: "calendarEvent",
-          text: "Calendar event",
-          iconProps: { iconName: "Calendar" },
+          key: "Unit2",
+          text: "UNIT 2",
+          iconProps: { iconName: "Edit" },
+          href: "/tutorialUnits/2",
+        },
+        {
+          key: "Unit2",
+          text: "UNIT 2",
+          iconProps: { iconName: "Edit" },
+        },
+        {
+          key: "Unit3",
+          text: "UNIT 3",
+          iconProps: { iconName: "Edit" },
+        },
+        {
+          key: "Unit4",
+          text: "UNIT 4",
+          iconProps: { iconName: "Edit" },
+        },
+        {
+          key: "Unit5",
+          text: "UNIT 5",
+          iconProps: { iconName: "Edit" },
+        },
+        {
+          key: "Unit6",
+          text: "UNIT 6",
+          iconProps: { iconName: "Edit" },
         },
       ],
     },
   },
   {
-    key: "upload",
-    text: "ITEM2",
-    iconProps: { iconName: "Upload" },
+    key: "games",
+    text: "GAMES",
+    iconProps: { iconName: "Game" },
     href: "https://developer.microsoft.com/en-us/fluentui",
   },
   {
-    key: "share",
-    text: "ITEM3",
+    key: "chat",
+    text: "ZONE",
     //style:{paddingLeft:200},
-    iconProps: { iconName: "Share" },
+    iconProps: { iconName: "CommentActive" },
     onClick: () => console.log("Share"),
   },
   {
-    key: "download",
-    text: "ITEM4",
+    key: "assessment",
+    text: "ASSESS",
     split: true,
-    iconProps: { iconName: "Download" },
+    iconProps: { iconName: "AccountActivity" },
     onClick: () => console.log("Download"),
   },
 ];
@@ -264,9 +303,9 @@ const _overflowItems: ICommandBarItemProps[] = [
 const _farItems: ICommandBarItemProps[] = [
   {
     key: "tile",
-    text: "Grid view",
+    text: "Dashboard",
     // This needs an ariaLabel since it's icon-only
-    ariaLabel: "Grid view",
+    ariaLabel: "Dashboard",
     iconOnly: true,
     iconProps: { iconName: "Tiles" },
     onClick: () => console.log("Tiles"),

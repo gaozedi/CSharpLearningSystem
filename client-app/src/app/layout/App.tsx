@@ -1,19 +1,18 @@
 import React, { Fragment, useContext, useEffect } from "react";
 import { Container } from "semantic-ui-react";
 //import "semantic-ui-css/semantic.min.css";
-import NavBar from "../../features/nav/NavBar";
 import { UnitDashboard } from "../../features/Units/dashboard/UnitDashboard";
 import { observer } from "mobx-react-lite";
 import { Route } from "react-router-dom";
-import HomePage from "../../features/home/HomePage";
 import UnitDetails from "../../features/Units/details/UnitDetails";
 import MyCompiler from "../../features/compiler/MyCompiler";
 import { RootStoreContext } from "../stores/rootStore";
 import LoginForm from "../../features/user/LoginForm";
-import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
 import LoadingComponent from "./LoadingComponent";
 import NewHomePage from "../NewUI/NewHomePage";
+import { initializeIcons } from "@fluentui/react";
+import MFQs from "../NewUI/MFQs";
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
@@ -30,22 +29,26 @@ const App = () => {
   useEffect(() => {
     if (token) {
       getUser().finally(() => setAppLoaded());
+      initializeIcons();
       setCoachMark();
     } else {
+      initializeIcons();
       setAppLoaded();
     }
-  }, [getUser, setAppLoaded, token]);
+  }, [getUser, setAppLoaded, token,setCoachMark]);
 
   if (!appLoaded) {
     return <LoadingComponent content="loading app" />;
   }
 
   return (
-    <Fragment>
+    <div>
       <ToastContainer position="top-center" />
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={NewHomePage} />
       <Route exact path="/newUI" component={NewHomePage} />
       <Route exact path="/tutorialunits/:id" component={UnitDetails} />
+      <Route exact path="/tutorialunits" component={UnitDashboard} />
+      <Route exact path="/mfqs" component={MFQs} />
       {/* when we are hitting the route with / and anything else, then the route matches*/}
       <Route
         path={"/(.+)"}
@@ -53,7 +56,7 @@ const App = () => {
           <Fragment>
             {/* <NavBar /> */}
             <Container style={{ marginTop: "7em" }}>
-              <Route exact path="/tutorialunits" component={UnitDashboard} />
+             
               {/* <Route path="/activities/:id" component={ActivityDetails} /> */}
               {/* whenever the location key changes which it dose when we navigate to create actvity 
         this component will rerender*/}
@@ -70,7 +73,7 @@ const App = () => {
           </Fragment>
         )}
       />
-    </Fragment>
+    </div>
   );
 };
 

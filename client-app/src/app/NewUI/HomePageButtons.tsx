@@ -3,17 +3,10 @@ import { Separator } from "office-ui-fabric-react/lib/Separator";
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { Stack, IStackTokens } from "office-ui-fabric-react/lib/Stack";
 import { Text } from "office-ui-fabric-react/lib/Text";
-import { FontIcon, Icon, IIconStyles } from "@fluentui/react";
+import { FontIcon } from "@fluentui/react";
 
 const stackTokens: IStackTokens = { childrenGap: 12 };
 
-const HorizontalSeparatorStack = (props: { children: JSX.Element[] }) => (
-  <>
-    {React.Children.map(props.children, (child) => {
-      return <Stack tokens={stackTokens}>{child}</Stack>;
-    })}
-  </>
-);
 
 const VerticalSeparatorStack = (props: { children: JSX.Element[] }) => (
   <Stack horizontal horizontalAlign="space-evenly">
@@ -31,7 +24,6 @@ const verticalStyle = mergeStyles({
   height: "200px",
 });
 
-const content = "Today";
 
 const iconClass = mergeStyles({
   fontSize: 50,
@@ -40,15 +32,8 @@ const iconClass = mergeStyles({
   margin: "0 25px",
 });
 
-const iconStyles: IIconStyles = {
-  root: {
-    fontSize: "24px",
-    height: "24px",
-    width: "24px",
-  },
-};
 
-export const SeparatorBasicExample: React.FC = () => (
+export const HomePageButtons: React.FC = () => (
   <Stack tokens={stackTokens} style={{ marginTop: "12%" }}>
     {/* <Stack tokens={stackTokens}>
       <Separator>
@@ -57,34 +42,42 @@ export const SeparatorBasicExample: React.FC = () => (
     </Stack> */}
     <VerticalSeparatorStack>
       <>
-        <Text variant='xLarge' block>PLACEHOLDER</Text>
+        <Text variant='xLarge' block>Tutorial Units</Text>
         <Stack.Item className={verticalStyle}>
           <Separator vertical alignContent="start">
-            <FontIcon iconName="CompassNW" className={iconClass} />
+            <FontIcon iconName="Library" className={iconClass} />
           </Separator>
         </Stack.Item>
       </>
       <>
-        <Text variant='xLarge'>PLACEHOLDER</Text>
+        <Text variant='xLarge'>Code Arena</Text>
         <Stack.Item className={verticalStyle}>
           <Separator vertical alignContent="start">
-            <FontIcon iconName="Dictionary" className={iconClass} />
+            <FontIcon iconName="Game" className={iconClass} />
           </Separator>
         </Stack.Item>
       </>
       <>
-        <Text variant='xLarge'>PLACEHOLDER</Text>
+        <Text variant='xLarge'>Video Tutorial</Text>
         <Stack.Item className={verticalStyle}>
           <Separator vertical alignContent="start">
-            <FontIcon iconName="CompassNW" className={iconClass} />
+            <FontIcon iconName="MSNVideosSolid" className={iconClass} />
           </Separator>
         </Stack.Item>
       </>
       <>
-        <Text variant='xLarge' >PLACEHOLDER</Text>
+        <Text variant='xLarge' >Learning Zone</Text>
         <Stack.Item className={verticalStyle}>
           <Separator vertical alignContent="start">
-            <FontIcon iconName="TrainSolid" className={iconClass} />
+            <FontIcon iconName="CommentActive" className={iconClass} />
+          </Separator>
+        </Stack.Item>
+      </>
+      <>
+        <Text variant='xLarge' >Learning Assessment</Text>
+        <Stack.Item className={verticalStyle}>
+          <Separator vertical alignContent="start">
+            <FontIcon iconName="ComplianceAudit" className={iconClass} />
           </Separator>
         </Stack.Item>
       </>

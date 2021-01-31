@@ -11,7 +11,6 @@ import {
 import { useBoolean } from "@uifabric/react-hooks";
 import {
   Icon,
-  initializeIcons,
   mergeStyles,
   TextField,
 } from "@fluentui/react";
@@ -32,14 +31,12 @@ const dialogContentProps = {
 };
 
 const DialogForm: React.FC = () => {
-  initializeIcons();
+
   const rootStore = React.useContext(RootStoreContext);
   const { login } = rootStore.userStore;
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
   const sendLogin = () => {
-    console.log(userEmail);
-    console.log(userPassword);
     const user: IUserFormValues = {
       email: userEmail,
       password: userPassword,

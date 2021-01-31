@@ -16,7 +16,7 @@ import {
   Breadcrumb,
   DefaultPalette,
   IBreadcrumbItem,
-  initializeIcons,
+
   IStackItemStyles,
   IStackStyles,
   IStackTokens,
@@ -50,18 +50,6 @@ const stackTokens: IStackTokens = {
   padding: 30,
 };
 
-const stackItemStyles: IStackItemStyles = {
-  root: {
-    // alignItems: "center",
-    background: DefaultPalette.blue,
-    color: DefaultPalette.white,
-    // display: "flex",
-    height: 45,
-    // justifyContent: "center",
-    alignContent: "center",
-    textIndent: "110",
-  },
-};
 
 const itemsWithHref: IBreadcrumbItem[] = [
   // Normally each breadcrumb would have a unique href, but to make the navigation less disruptive
@@ -137,7 +125,7 @@ class Program
 ~~~
 `;
   useEffect(() => {
-    initializeIcons();
+
     loadOneUnit(match.params.id);
     //pass loadActivity as dependency so the useEffect run only once.
   }, [loadOneUnit, match.params.id]);
@@ -180,11 +168,14 @@ class Program
             children={markdown}
           />
         </Stack.Item>
-        <Stack.Item>
-          <MyCompiler />
+
+        <Stack.Item className="frostedGlassbg">
+          <div className="frostedGlassContainer2">
+            <MyCompiler />
+          </div>
         </Stack.Item>
       </Stack>
-      
+
       <Stack
         horizontal
         style={{
@@ -219,7 +210,6 @@ class Program
           </Text>
         </Stack.Item>
       </Stack>
-
     </ThemeProvider>
   );
 };

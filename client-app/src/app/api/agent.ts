@@ -1,4 +1,4 @@
-import { ICode } from "../models/code";
+import { ICode, IMFQAnswer } from "../models/code";
 import { ITutorialUnit } from "../models/unit";
 import axios, { AxiosResponse } from "axios";
 import { IUser, IUserFormValues } from "../models/user";
@@ -58,7 +58,8 @@ const TutorialUnits = {
   list: (): Promise<ITutorialUnit[]> => requests.get("http://localhost:5000/api/tutorialunits"),
   details: (id: string) => requests.get(`http://localhost:5000/api/tutorialunits/${id}`),
   compile: (code: ICode) => requests.post("http://localhost:5000/api/tutorialunits/Compiler", code),
-  AICodeInspect:(code:ICode)=>requests.post("https://localhost:44314/api/Predict", code)
+  AICodeInspect:(code:ICode)=>requests.post("https://localhost:44314/api/Predict", code),
+  AIMFQ:(answer:IMFQAnswer)=>requests.post("http://127.0.0.1:8000/api/task-create/", answer)
 };
 
 

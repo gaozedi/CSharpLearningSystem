@@ -1,3 +1,4 @@
+import { IMFQAnswer } from './../models/code';
 import { RootStore } from "./rootStore";
 import { IInspectResult } from "../models/inspectResult";
 import { ICode } from "../models/code";
@@ -22,7 +23,7 @@ export default class UnitStore {
   // @observable unitsRegistry = new Map();
   @observable compiledResult = "";
   @observable inspectResult: IInspectResult | undefined = undefined;
-  @observable test = "test";
+  @observable MFQResult = "";
   @action loadUnits = async () => {
     try {
       const units = await agent.TutorialUnits.list();
@@ -92,6 +93,22 @@ export default class UnitStore {
       });
     }
   };
+
+
+  @action AIMFQAction = async (answer: IMFQAnswer) => {
+    try {
+      this.MFQResult = await agent.TutorialUnits.AIMFQ(answer);
+      // runInAction("logging", () => {
+      //   console.log(Math.ceil(this.inspectResult!.score * 10));
+      // });
+    } catch (error) {
+      runInAction("error", () => {
+        console.log(error);
+      });
+    }
+  };
 }
+
+
 
 //export default createContext(new UnitStore());

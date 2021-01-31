@@ -27,12 +27,10 @@
 
 .masthead .ui.menu .ui.button,
 .ui.menu a.ui.inverted.button {
-
   margin-left: 0.5em;
 }
 
 .masthead h1.ui.header {
-
   font-size: 4em;
   font-weight: normal;
 }
@@ -44,38 +42,96 @@
 }
 
 /*end home page styles*/
-.bgpattern{
-  background-image:  radial-gradient(gray 1px, transparent 0);
+.bgpattern {
+  background-image: radial-gradient(gray 1px, transparent 0);
   background-size: 20px 20px, 20px 20px;
 }
 
-
 /* New UI */
 .rainbow {
-  background-image: -webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
-  color:transparent;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0.1, rgb(44, 94, 204)),
+    color-stop(0.9, rgb(255, 104, 34))
+  );
+  color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-/* New UI */
 .rainbowbg {
-  background-color: -webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
-  color:-webkit-gradient( linear, left top, right top, color-stop(0.1, rgb(44, 94, 204)), color-stop(0.9, rgb(255, 104, 34)) );
-  -webkit-background-clip: text;
-  background-clip: text;
+  /* width: 30rem;
+  height: 20rem; */
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
 }
+.frostedGlassbg {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/Tk0B3Dfkf_4/download?force=true&w=1920)
+    no-repeat;
+  background-size: cover;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+padding: 3%;
+}
+.frostedGlassContainer {
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.frostedGlassContainerWithPadding {
+  box-shadow: 0 0 0.4rem 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  padding: 3%;
+}
+.frostedGlassbg2 {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/7JX0-bfiuxQ/download?force=true&w=1920)
+    no-repeat;
+  background-size: cover;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height:auto;
+  padding: 3%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.frostedGlassContainer2 {
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+
+}
+
+.center {
+  position: fixed; /* or absolute */
+  top: 40%;
+  left: 44%;
+}
+
 html {
   overflow: scroll;
   overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  background: #FF0000;
+  background: #ff0000;
 }
 
 /* .col-1 {width: 8.33%;}

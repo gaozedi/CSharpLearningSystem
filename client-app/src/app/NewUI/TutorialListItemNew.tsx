@@ -29,7 +29,7 @@ interface IProps{
 const TutorialListItemNew : React.FC<IProps> =({tutorialUnit})=> {
   const history = useHistory();
 
-  const alertClicked = (): void => {
+  const gotoDetails = (): void => {
     let path = `tutorialunits/${tutorialUnit.id}`; 
     history.push(path);
   };
@@ -90,7 +90,7 @@ const TutorialListItemNew : React.FC<IProps> =({tutorialUnit})=> {
         <Card
           aria-label="Clickable horizontal card "
           horizontal
-          onClick={alertClicked}
+          onClick={gotoDetails}
           tokens={cardTokens}
         >
           <Card.Item align="center">

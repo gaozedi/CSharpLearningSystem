@@ -23,7 +23,7 @@ namespace API.Controllers
             //send message to List Handler
             return await Mediator.Send(new List.Query());
         }
-        
+
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TutorialUnit>> Details(int id)
@@ -40,22 +40,12 @@ namespace API.Controllers
             Console.WriteLine(result);
             return Ok(result);
         }
-        // // POST api/values
-        // [HttpPost]
-        // public void Post([FromBody] string value)
-        // {
-        // }
 
-        // // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody] string value)
-        // {
-        // }
-
-        // // DELETE api/values/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
+        [Route("Meow")]
+        [HttpGet]
+        public ActionResult<String> Meow()
+        {
+            return ("Meow");
+        }
     }
 }

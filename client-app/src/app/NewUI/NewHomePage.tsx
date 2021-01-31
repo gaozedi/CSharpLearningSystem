@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ThemeProvider } from "@fluentui/react-theme-provider";
 import {
   IStackStyles,
@@ -7,15 +7,9 @@ import {
   Stack,
 } from "@fluentui/react";
 import { darkTheme, lightTheme } from "../../themes";
-
-import { initializeIcons } from "@uifabric/icons";
 import { Text } from "office-ui-fabric-react/lib/Text";
-import { SeparatorBasicExample } from "./Card";
+import { HomePageButtons } from "./HomePageButtons";
 import { Image } from "office-ui-fabric-react/lib/Image";
-
-import DialogForm from "../common/form/DialogForm";
-
-import UnitsListNew from "./UnitsListNew";
 import { observer } from "mobx-react-lite";
 import NavBarNew from "../../features/nav/NavBarNew";
 import { RootStoreContext } from "../stores/rootStore";
@@ -27,17 +21,6 @@ const stackStyles: IStackStyles = {
   },
 };
 
-// const stackItemStyles: IStackItemStyles = {
-//   root: {
-//     alignItems:"center",
-//     //  background: DefaultPalette.themePrimary,
-//     //  color: DefaultPalette.white,
-//     display: "flex",
-//     height: 40,
-//     justifyContent: "center",
-//   },
-// };
-
 // Tokens definition
 const stackTokens: IStackTokens = {
   childrenGap: 10,
@@ -47,9 +30,6 @@ const stackTokens: IStackTokens = {
 const NewHomePage: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { useDarkMode } = rootStore.commonStore;
-
-  initializeIcons();
-
   return (
     <ThemeProvider applyTo="body" theme={useDarkMode ? darkTheme : lightTheme}>
       <NavBarNew />
@@ -62,10 +42,10 @@ const NewHomePage: React.FC = () => {
             verticalAlign="center"
             horizontalAlign="space-around"
             gap={"10%"}
-            style={{  paddingTop: "5%"}}
+            style={{ paddingTop: "5%" }}
           >
             <Stack.Item grow={2}>
-              <Text style={{ fontSize: 180, paddingLeft: "5%"}}>My</Text>
+              <Text style={{ fontSize: 180, paddingLeft: "5%" }}>My</Text>
               <Text className="rainbow" style={{ fontSize: 200 }}>
                 Home
               </Text>
@@ -86,7 +66,7 @@ const NewHomePage: React.FC = () => {
         </Stack.Item>
       </Stack>
 
-      <SeparatorBasicExample />
+      <HomePageButtons />
 
       <Stack
         horizontal
@@ -104,9 +84,7 @@ const NewHomePage: React.FC = () => {
           </Text>
         </Stack.Item>
         <Stack.Item grow={4}>
-          {/* <Text variant='mega'>
-          "
-          </Text> */}
+
           <Text variant="xLarge">
             "True beauty
             <br />
@@ -145,14 +123,6 @@ const NewHomePage: React.FC = () => {
           <Image src="https://static2.sharepointonline.com/files/fabric/fabric-website/images/discover-resources-1x.png" />
         </Stack.Item>
       </Stack>
-      {/* <div className="ms-Grid" dir="ltr">
-      <div className="ms-Grid-row">
-          <div>
-
-          </div>
-      </div>
-      </div> */}
-      <UnitsListNew />
     </ThemeProvider>
   );
 };

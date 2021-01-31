@@ -1,67 +1,58 @@
+import { IStackTokens, Stack } from "@fluentui/react";
+import { ThemeProvider } from "@fluentui/react-theme-provider";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Icon, Item, Label, Segment } from "semantic-ui-react";
+
 import { RootStoreContext } from "../../../app/stores/rootStore";
-
-const UnitsList: React.FC = () => {
+import { darkTheme, lightTheme } from "../../../themes";
+import TutorialListItemNew from "../../../app/NewUI/TutorialListItemNew";
+//in order to use the interface above, we neet to give our component a type, then we can use props object
+//in our component
+export const UnitDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { allunits,loadUnits } = rootStore.unitStore;
+  const { useDarkMode } = rootStore.commonStore;
 
+  const { allunits, loadUnits } = rootStore.unitStore;
   useEffect(() => {
-    loadUnits();
+    if (allunits.length > 0) {
+    } else {
+      loadUnits();
+    }
+
     //need to specify the dependencies in dependenciy array below
   }, [loadUnits]);
-  //we are also observing loading initial below
-  // if (loadingInitial) {
-  //   return <LoadingComponent content="Loading activities..." />;
-  // }
+  // Tokens definition
+  const stackTokens: IStackTokens = {
+    childrenGap: 10,
+    padding: 30,
+  };
 
   return (
-    <Segment clearing>
-      <Item.Group divided>
-        {allunits.map((unit) => (
-          <Item>
-            <Item.Content>
-              <Item.Header as="a">{unit.content}</Item.Header>
-              <Item.Meta>date</Item.Meta>
-              <Item.Description>Description</Item.Description>
-
-              <Item.Extra>
-                <Button
-                  animated
-                  color="blue"
-                  name={unit.id}
-                  as={Link}
-                  to={`/tutorialunits/${unit.id}`}
-                  icon="right arrow"
-                  floated="right"
-                >
-                  <Button.Content visible>Study</Button.Content>
-                  <Button.Content hidden>
-                    <Icon name="arrow right" />
-                  </Button.Content>
-                </Button>
-
-                <Label basic content="label content" />
-                <Button
-                  color="red"
-                  content="Like"
-                  icon="heart"
-                  label={{
-                    basic: true,
-                    color: "red",
-                    pointing: "left",
-                    content: "128",
-                  }}
-                  floated="right"
-                />
-              </Item.Extra>
-            </Item.Content>
-          </Item>
-        ))}
-      </Item.Group>
-    </Segment>
+    <ThemeProvider applyTo="body" theme={useDarkMode ? darkTheme : lightTheme}>
+      <Stack.Item>
+        <Stack tokens={stackTokens} className="frostedGlassbg2">
+          <Stack.Item className="frostedGlassContainer">
+            <Stack
+              horizontal
+              horizontalAlign="center"
+              tokens={stackTokens}
+              wrap
+            >
+              {allunits.map((unit) => (
+                <Stack.Item>
+                  <TutorialListItemNew tutorialUnit={unit} />
+                  <br />
+                  <TutorialListItemNew tutorialUnit={unit} />
+                  <br />
+                  <TutorialListItemNew tutorialUnit={unit} />
+                </Stack.Item>
+              ))}
+            </Stack>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </ThemeProvider>
   );
 };
-export default observer(UnitsList);
+
+export default observer(UnitDashboard);
