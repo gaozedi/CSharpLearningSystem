@@ -1,11 +1,15 @@
-import { IMFQAnswer } from './../models/code';
+import { IMFQAnswer } from "./../models/code";
 import { RootStore } from "./rootStore";
 import { IInspectResult } from "../models/inspectResult";
 import { ICode } from "../models/code";
 import { ITutorialUnit } from "../models/unit";
 import { action, observable, runInAction } from "mobx";
 import agent from "../api/agent";
-
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@microsoft/signalr";
 
 //configure({ enforceActions: "always" });
 
@@ -24,6 +28,63 @@ export default class UnitStore {
   @observable compiledResult = "";
   @observable inspectResult: IInspectResult | undefined = undefined;
   @observable MFQResult = "";
+  @observable.ref hubConnection: HubConnection | null = null;
+  @observable signal = "";
+  @observable beat_user = "";
+  @observable fightResult = "";
+  @action createHubConnection = () => {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl("http://localhost:5000/signal", {
+        accessTokenFactory: () => this.rootStore.commonStore.token!,
+      })
+      .configureLogging(LogLevel.Information)
+      .build();
+    this.hubConnection
+      .start()
+      .then(() => console.log(this.hubConnection!.state))
+      .catch((error) => console.log("Error establishing connection:", error));
+    this.hubConnection.on("ReceiveSignal", (signal) => {
+      this.signal = signal;
+    });
+    this.hubConnection.on("ReceiveHeartbeat", (beat) => {
+      this.beat_user = beat;
+    });
+    this.hubConnection.on("ReceiveFight", (result) => {
+      this.fightResult = result;
+    });
+  };
+
+  @action stopHubConnection = () => {
+    this.hubConnection!.stop();
+  };
+
+  @action sendSignal = async (values: any) => {
+    try {
+      //SendComment needs to match excatlt in ChatHub
+      await this.hubConnection!.invoke("SendSignal", values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  @action sendFightStart = async () => {
+    try {
+      //SendComment needs to match excatlt in ChatHub
+      await this.hubConnection!.invoke("SendFight");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  @action sendHeartbeat = async (values: any) => {
+    try {
+      //SendComment needs to match excatlt in ChatHub
+      await this.hubConnection!.invoke("SendHeartbeat", values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   @action loadUnits = async () => {
     try {
       const units = await agent.TutorialUnits.list();
@@ -34,11 +95,16 @@ export default class UnitStore {
         });
       });
     } catch (error) {
-      runInAction("error", () => {console.log(error)});
+      runInAction("error", () => {
+        console.log(error);
+      });
     }
     // .then(() => console.log("from store:" + this.unitsRegistry.get(0)))
     //    .finally(() => (this.loadingInitial = false));
   };
+
+
+
 
   @action loadOneUnit = async (id: string) => {
     //if the user is from DashBoard, we can get an activity by calling method below
@@ -94,7 +160,6 @@ export default class UnitStore {
     }
   };
 
-
   @action AIMFQAction = async (answer: IMFQAnswer) => {
     try {
       this.MFQResult = await agent.TutorialUnits.AIMFQ(answer);
@@ -108,7 +173,5 @@ export default class UnitStore {
     }
   };
 }
-
-
 
 //export default createContext(new UnitStore());

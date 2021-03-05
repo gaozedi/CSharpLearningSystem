@@ -1,5 +1,5 @@
-import React, { Fragment, useContext, useEffect } from "react";
-import { Container } from "semantic-ui-react";
+import React, { useContext, useEffect } from "react";
+
 //import "semantic-ui-css/semantic.min.css";
 import { UnitDashboard } from "../../features/Units/dashboard/UnitDashboard";
 import { observer } from "mobx-react-lite";
@@ -13,6 +13,7 @@ import LoadingComponent from "./LoadingComponent";
 import NewHomePage from "../NewUI/NewHomePage";
 import { initializeIcons } from "@fluentui/react";
 import MFQs from "../NewUI/MFQs";
+import Game from "../NewUI/Game";
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
@@ -35,7 +36,7 @@ const App = () => {
       initializeIcons();
       setAppLoaded();
     }
-  }, [getUser, setAppLoaded, token,setCoachMark]);
+  }, [getUser, setAppLoaded, token, setCoachMark]);
 
   if (!appLoaded) {
     return <LoadingComponent content="loading app" />;
@@ -53,10 +54,9 @@ const App = () => {
       <Route
         path={"/(.+)"}
         render={() => (
-          <Fragment>
+          <div>
             {/* <NavBar /> */}
-            <Container style={{ marginTop: "7em" }}>
-             
+            <div style={{ marginTop: "7em" }}>
               {/* <Route path="/activities/:id" component={ActivityDetails} /> */}
               {/* whenever the location key changes which it dose when we navigate to create actvity 
         this component will rerender*/}
@@ -68,9 +68,9 @@ const App = () => {
               /> */}
               <Route path="/compiler" component={MyCompiler} />
               <Route path="/login" component={LoginForm} />
-              {/* <Route component={NotFound} /> */}
-            </Container>
-          </Fragment>
+              <Route path="/game" component={Game} />
+            </div>
+          </div>
         )}
       />
     </div>

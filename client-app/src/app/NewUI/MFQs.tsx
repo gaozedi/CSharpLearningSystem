@@ -13,13 +13,9 @@ import { RootStoreContext } from "../../app/stores/rootStore";
 import {
   Card,
   ICardTokens,
-  ICardSectionTokens,
-  ICardSectionStyles,
 } from "@uifabric/react-cards";
 import {
   FontWeights,
-  Icon,
-  IIconStyles,
   Text,
   ITextStyles,
 } from "office-ui-fabric-react";
@@ -56,17 +52,7 @@ const MFQs: React.FC = () => {
     padding: 30,
   };
 
-  const iconStyles: IIconStyles = {
-    root: {
-      fontSize: "24px",
-      height: "24px",
-      width: "24px",
-    },
-  };
   const cardTokens: ICardTokens = { childrenMargin: 12 };
-  const footerCardSectionTokens: ICardSectionTokens = {
-    padding: "0px 0px 0px 12px",
-  };
 
   const siteTextStyles: ITextStyles = {
     root: {
@@ -80,19 +66,7 @@ const MFQs: React.FC = () => {
       fontWeight: FontWeights.regular,
     },
   };
-  const helpfulTextStyles: ITextStyles = {
-    root: {
-      color: "#333333",
-      fontWeight: FontWeights.regular,
-    },
-  };
 
-  const footerCardSectionStyles: ICardSectionStyles = {
-    root: {
-      alignSelf: "stretch",
-      borderLeft: "1px solid #F3F2F1",
-    },
-  };
 
   return (
     <>
@@ -102,7 +76,7 @@ const MFQs: React.FC = () => {
         <Stack.Item>
           <Stack>
             <Stack.Item>
-            <Text variant="mega">AI MFQ System</Text>
+            <Text variant="mega" className="rainbow2">AI MFQ System</Text>
             </Stack.Item>
             <Stack.Item>
               <Text variant="xLarge">

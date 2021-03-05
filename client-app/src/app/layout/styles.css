@@ -61,6 +61,21 @@
   background-clip: text;
 }
 
+.rainbow2 {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0.1, rgb(125, 163, 245)),
+    color-stop(0.4, rgb(238, 31, 100)),
+    color-stop(0.9, rgb(4, 35, 139))
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+
 .rainbowbg {
   /* width: 30rem;
   height: 20rem; */

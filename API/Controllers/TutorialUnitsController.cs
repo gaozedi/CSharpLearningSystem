@@ -9,13 +9,19 @@ using Persistence;
 using MediatR;
 using Application.TutorialUnits;
 using Microsoft.AspNetCore.Authorization;
+using API.CompilationHelper;
 
 namespace API.Controllers
 {
 
     public class TutorialUnitsController : BaseController
     {
-
+        private IMyCompiler _mycompiler;
+        public TutorialUnitsController(IMyCompiler compiler):base()
+        {
+            _mycompiler = compiler;
+        }
+        
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TutorialUnit>>> List()
@@ -36,7 +42,7 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult Compile(CodeViewModel code)
         {
-            var result = MyCompiler.Compile(code.CodeStr).ToString();
+            var result =_mycompiler.Complie(code.CodeStr).ToString();
             Console.WriteLine(result);
             return Ok(result);
         }

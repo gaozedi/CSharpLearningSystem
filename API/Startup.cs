@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.CompilationHelper;
 using API.Middlewares;
+using API.SignalR;
 using Application.Interfaces;
 using Application.TutorialUnits;
 using FluentValidation.AspNetCore;
@@ -47,12 +49,15 @@ namespace API
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
                     //any request coming from client-app will be allow to use any header and any method(GET,POST etc.)
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials();
                 });
             });
 
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddControllers(opt=>{
+
+            services.AddSignalR();
+            services.AddControllers(opt =>
+            {
                 //every request requires a autheticated user
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
@@ -82,9 +87,25 @@ namespace API
                     //it's local URL now.
                     ValidateIssuer = false
                 };
+                opt.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/signal")))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+
+            services.AddSingleton<IMyCompiler, MyCompiler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,6 +126,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MyHub>("/signal");
             });
         }
     }

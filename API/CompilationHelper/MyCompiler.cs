@@ -4,17 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using API.CompilationHelper;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 
 namespace API
 {
-    public class MyCompiler
+    public class MyCompiler:IMyCompiler
     {
         static Action<string> Write = Console.WriteLine;
 
-        public static string Compile(string code)
+         public string Complie(string code)
         {
             Write("compiler called.");
             Console.WriteLine("input raw code: "+code);
@@ -95,7 +96,6 @@ namespace API
             return "Execution ended.";
 
         }
-
 
     }
 }
