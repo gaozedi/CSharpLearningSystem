@@ -50,6 +50,7 @@ const App = () => {
       <Route exact path="/tutorialunits/:id" component={UnitDetails} />
       <Route exact path="/tutorialunits" component={UnitDashboard} />
       <Route exact path="/mfqs" component={MFQs} />
+      <Route exact path="/game" component={Game} />
       {/* when we are hitting the route with / and anything else, then the route matches*/}
       <Route
         path={"/(.+)"}
@@ -68,7 +69,7 @@ const App = () => {
               /> */}
               <Route path="/compiler" component={MyCompiler} />
               <Route path="/login" component={LoginForm} />
-              <Route path="/game" component={Game} />
+          
             </div>
           </div>
         )}

@@ -75,7 +75,6 @@
   background-clip: text;
 }
 
-
 .rainbowbg {
   /* width: 30rem;
   height: 20rem; */
@@ -93,7 +92,7 @@
   align-items: center;
   justify-content: center;
   height: auto;
-padding: 3%;
+  padding: 3%;
 }
 .frostedGlassContainer {
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
@@ -117,7 +116,7 @@ padding: 3%;
   display: grid;
   align-items: center;
   justify-content: center;
-  height:auto;
+  height: auto;
   padding: 3%;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -127,7 +126,64 @@ padding: 3%;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(5px);
+}
 
+.image_half_screen {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/nAjil1z3eLk/download?force=true&w=1920)
+    no-repeat;
+  width: 30rem;
+
+  background-size: cover;
+  /* display: grid; */
+  align-items: center;
+  justify-content: center;
+  height: auto;
+
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  /* border-radius: 5px; */
+}
+
+.simple_bg_image {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/7JX0-bfiuxQ/download?force=true&w=1920)
+    no-repeat;
+  background-size: cover;
+  display: grid;
+  padding: 3%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.game_user1 {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/awXBjFhh7iw/download?force=true&w=640)
+    no-repeat;
+  width: 40rem;
+  height: 100rem;
+  background-size: cover;
+  /* display: grid; */
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: 6%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.game_user2 {
+  /* background: url(https://unsplash.com/photos/BslSDcQww0M/download?force=true) no-repeat; */
+  background: url(https://unsplash.com/photos/0H87aXUE8bE/download?force=true&w=640)
+    no-repeat;
+    padding: 6%;
+  width: 40rem;
+
+  background-size: cover;
+  /* display: grid; */
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: 6%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .center {

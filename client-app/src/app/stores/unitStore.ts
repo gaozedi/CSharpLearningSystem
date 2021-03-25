@@ -32,6 +32,12 @@ export default class UnitStore {
   @observable signal = "";
   @observable beat_user = "";
   @observable fightResult = "";
+  @observable user1 = "";
+  @observable user2 = "";
+  @observable user1Status = "";
+  @observable user2Status = "";
+
+  
   @action createHubConnection = () => {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl("http://localhost:5000/signal", {
@@ -48,6 +54,17 @@ export default class UnitStore {
     });
     this.hubConnection.on("ReceiveHeartbeat", (beat) => {
       this.beat_user = beat;
+      var splitted = this.beat_user.split(":");
+      if (this.user1 === "") {
+        this.user1 = splitted[0];
+      } else if (this.user1!=splitted[0]) {
+        this.user2 = splitted[0];
+      }
+      if (this.user1 === splitted[0]) {
+        this.user1Status = splitted[1];
+      } else {
+        this.user2Status = splitted[1];
+      }
     });
     this.hubConnection.on("ReceiveFight", (result) => {
       this.fightResult = result;
@@ -76,7 +93,6 @@ export default class UnitStore {
     }
   };
 
-
   @action sendHeartbeat = async (values: any) => {
     try {
       //SendComment needs to match excatlt in ChatHub
@@ -102,9 +118,6 @@ export default class UnitStore {
     // .then(() => console.log("from store:" + this.unitsRegistry.get(0)))
     //    .finally(() => (this.loadingInitial = false));
   };
-
-
-
 
   @action loadOneUnit = async (id: string) => {
     //if the user is from DashBoard, we can get an activity by calling method below

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using API.CompilationHelper;
+using Application.Errors;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
@@ -13,6 +14,7 @@ namespace API.SignalR
     {
         private readonly IMediator _mediator;
         public List<string> CodeSet = new List<string>();
+        public int LinesUserSubmitted { get; set; }
         private string _status;
         private IMyCompiler _compiler;
         public MyHub(IMediator mediator, IMyCompiler compiler)
@@ -20,26 +22,26 @@ namespace API.SignalR
             _mediator = mediator;
             _compiler = compiler;
         }
-        //similar to API Controller
+        
+
+        //Write code to file.
         public async Task SendSignal(string content)
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            // this.CodeSet.Add(content);
-            // command.Username = username;
 
-            // var comment = await _mediator.Send(command);
-            // //send to any clients connected to this ChatHub
-            //var result = _compiler.Complie(CodeSet[0]);
-            // var result = string.Join(" ", CodeSet.ToArray());
             using StreamWriter file = new StreamWriter("WriteLines.txt", append: true);
             await file.WriteLineAsync(content);
-            await Clients.All.SendAsync("ReceiveSignal", username + ": " + content);
+            await Clients.All.SendAsync("ReceiveSignal", username + ":" + content.Length + ":" + content[0] + "*******" + content[content.Length - 2] + ";");
         }
-
+        //Compile Code
         public async Task SendFight()
         {
-
             List<string> lines = System.IO.File.ReadAllLines("WriteLines.txt").ToList();
+            //All 2 users need to submit the code.
+            if (lines.Count != 2)
+            {
+                throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Message = "Code Lines Count not match" });
+            }
             lines.Add("return target.ToString();");
             var codeSet = string.Join(" ", lines.ToArray());
             var compiledResult = _compiler.Complie(codeSet);
@@ -51,11 +53,19 @@ namespace API.SignalR
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             this._status = content;
-            // command.Username = username;
-
-            // var comment = await _mediator.Send(command);
-            // //send to any clients connected to this ChatHub
-            await Clients.All.SendAsync("ReceiveHeartbeat", username + ": " + _status);
+            LinesUserSubmitted = System.IO.File.ReadAllLines("WriteLines.txt").ToList().Count;
+            await Clients.All.SendAsync("ReceiveHeartbeat", username + ":" + _status + ":"+ LinesUserSubmitted);
         }
     }
+
+    public static class StringExtensions
+{
+    public static string FirstCharToUpper(this string input) =>
+        input switch
+        {
+            null => throw new ArgumentNullException(nameof(input)),
+            "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+            _ => input.First().ToString().ToUpper() + input.Substring(1)
+        };
+}
 }
