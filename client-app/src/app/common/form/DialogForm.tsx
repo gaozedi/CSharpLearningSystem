@@ -25,9 +25,9 @@ const modelProps = {
 
 const dialogContentProps = {
   type: DialogType.largeHeader,
-  title: "All emails together",
+  title: "Login",
   subText:
-    "Your Inbox has changed. No longer does it include favorites, it is a singular destination for your emails.",
+    "Your password will NOT be stored on the server. Instead, it will be encryped using SHA-512, the most secure most secure hashing algorithm in the world",
 };
 
 const DialogForm: React.FC = () => {

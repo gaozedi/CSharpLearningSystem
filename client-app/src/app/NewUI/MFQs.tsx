@@ -5,21 +5,16 @@ import {
   ProgressIndicator,
   PrimaryButton,
   Slider,
+  CompoundButton,
 } from "@fluentui/react";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { IMFQAnswer } from "../../app/models/code";
 import { RootStoreContext } from "../../app/stores/rootStore";
-import {
-  Card,
-  ICardTokens,
-} from "@uifabric/react-cards";
-import {
-  FontWeights,
-  Text,
-  ITextStyles,
-} from "office-ui-fabric-react";
+import { Card, ICardTokens } from "@uifabric/react-cards";
+import { FontWeights, Text, ITextStyles } from "office-ui-fabric-react";
 import NavBarNew from "../../features/nav/NavBarNew";
+import { CombSpinner, WaveSpinner } from "react-spinners-kit";
 
 const MFQs: React.FC = () => {
   const [userAnswerSort, setUserAnswerSort] = useState("");
@@ -67,7 +62,6 @@ const MFQs: React.FC = () => {
     },
   };
 
-
   return (
     <>
       <NavBarNew />
@@ -75,19 +69,34 @@ const MFQs: React.FC = () => {
       <Stack horizontal horizontalAlign="space-around" verticalAlign="center">
         <Stack.Item>
           <Stack>
+           
             <Stack.Item>
-            <Text variant="mega" className="rainbow2">AI MFQ System</Text>
+              <Text variant="mega" className="rainbow2">
+                AI MFQ System
+              </Text>
             </Stack.Item>
+        
             <Stack.Item>
               <Text variant="xLarge">
                 Please answer questions on the right.
+                <br />
               </Text>
+              <Text variant="large">
+                This system runs a RNN machine learning model,
+                <br />
+                which will assest your learning outcome,
+                <br />
+                and provide you with the personalized recommendations.
+                <br /><br />
+              </Text>
+            </Stack.Item>
+            <Stack.Item>
+              <WaveSpinner size={90} color="lightblue" />
             </Stack.Item>
           </Stack>
         </Stack.Item>
         <Stack.Item>
           <Stack tokens={stackTokens}>
-
             <Stack.Item>
               <Card
                 aria-label="Clickable horizontal card "
@@ -119,7 +128,7 @@ const MFQs: React.FC = () => {
             </Stack.Item>
             <Stack.Item className="frostedGlassContainerWithPadding">
               <Text styles={siteTextStyles} variant="large">
-                2. Please choose your satisifaction value for this app.
+                2. Please choose your satisfaction value for this app.
               </Text>
               <Slider
                 showValue
@@ -168,8 +177,14 @@ const MFQs: React.FC = () => {
                 </Card.Section> */}
               </Card>
             </Stack.Item>
-            <Stack.Item>
-              <PrimaryButton onClick={sendMFQAnswer}>Submit</PrimaryButton>
+            <Stack.Item align="end">
+              <CompoundButton
+                primary
+                secondaryText="By submit you agree that your data will be used anonymously to improved the ML model"
+                onClick={sendMFQAnswer}
+              >
+                Submit
+              </CompoundButton>
             </Stack.Item>
             <Stack.Item>{MFQResult}</Stack.Item>
           </Stack>

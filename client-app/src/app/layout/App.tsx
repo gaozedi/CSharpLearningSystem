@@ -14,6 +14,7 @@ import NewHomePage from "../NewUI/NewHomePage";
 import { initializeIcons } from "@fluentui/react";
 import MFQs from "../NewUI/MFQs";
 import Game from "../NewUI/Game";
+import VideoUnits from "../NewUI/VideoUnits";
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
@@ -51,6 +52,7 @@ const App = () => {
       <Route exact path="/tutorialunits" component={UnitDashboard} />
       <Route exact path="/mfqs" component={MFQs} />
       <Route exact path="/game" component={Game} />
+      <Route exact path="/videos" component={VideoUnits} />
       {/* when we are hitting the route with / and anything else, then the route matches*/}
       <Route
         path={"/(.+)"}

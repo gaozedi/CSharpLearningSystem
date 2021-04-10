@@ -1,1 +1,10 @@
-int target = 128;
+int target = 128;target = target * 100;
+target = target * 100;
+target = target * -100;
+target = target * 100;
+target = target * 100;
+target = target * 100;
+target = target * 100;
+target = target * 100;
+target = target * 100;
+target = target * 100;

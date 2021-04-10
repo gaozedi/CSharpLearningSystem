@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { IMFQAnswer } from "./../models/code";
 import { RootStore } from "./rootStore";
 import { IInspectResult } from "../models/inspectResult";
@@ -36,8 +37,8 @@ export default class UnitStore {
   @observable user2 = "";
   @observable user1Status = "";
   @observable user2Status = "";
+  @observable winner = "";
 
-  
   @action createHubConnection = () => {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl("http://localhost:5000/signal", {
@@ -51,13 +52,14 @@ export default class UnitStore {
       .catch((error) => console.log("Error establishing connection:", error));
     this.hubConnection.on("ReceiveSignal", (signal) => {
       this.signal = signal;
+      toast.info(signal);
     });
     this.hubConnection.on("ReceiveHeartbeat", (beat) => {
       this.beat_user = beat;
       var splitted = this.beat_user.split(":");
       if (this.user1 === "") {
         this.user1 = splitted[0];
-      } else if (this.user1!=splitted[0]) {
+      } else if (this.user1 != splitted[0]) {
         this.user2 = splitted[0];
       }
       if (this.user1 === splitted[0]) {
@@ -68,6 +70,13 @@ export default class UnitStore {
     });
     this.hubConnection.on("ReceiveFight", (result) => {
       this.fightResult = result;
+      if (result >= 100) {
+        this.winner = this.user1;
+        toast.success(this.user1+" won the game!");
+      } else {
+        this.winner = this.user1;
+        toast.success(this.user2+" won the game!");
+      }
     });
   };
 
