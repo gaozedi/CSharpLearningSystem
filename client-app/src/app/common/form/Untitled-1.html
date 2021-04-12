@@ -1,0 +1,61 @@
+<table><tr><th>type</th><th>name</th><th>tbl_name</th><th>rootpage</th><th>sql</th><tr><tr><td>table</td><td>__EFMigrationsHistory</td><td>__EFMigrationsHistory</td><td>2</td><td>CREATE TABLE &quot;__EFMigrationsHistory&quot; (
+    &quot;MigrationId&quot; TEXT NOT NULL CONSTRAINT &quot;PK___EFMigrationsHistory&quot; PRIMARY KEY,
+    &quot;ProductVersion&quot; TEXT NOT NULL
+)</td></tr><tr><td>index</td><td>sqlite_autoindex___EFMigrationsHistory_1</td><td>__EFMigrationsHistory</td><td>3</td><td>NULL</td></tr><tr><td>table</td><td>TutorialUnits</td><td>TutorialUnits</td><td>4</td><td>CREATE TABLE &quot;TutorialUnits&quot; (
+    &quot;Id&quot; INTEGER NOT NULL CONSTRAINT &quot;PK_TutorialUnits&quot; PRIMARY KEY AUTOINCREMENT,
+    &quot;Content&quot; TEXT NULL
+)</td></tr><tr><td>table</td><td>sqlite_sequence</td><td>sqlite_sequence</td><td>5</td><td>CREATE TABLE sqlite_sequence(name,seq)</td></tr><tr><td>table</td><td>AspNetRoles</td><td>AspNetRoles</td><td>6</td><td>CREATE TABLE &quot;AspNetRoles&quot; (
+    &quot;Id&quot; TEXT NOT NULL CONSTRAINT &quot;PK_AspNetRoles&quot; PRIMARY KEY,
+    &quot;Name&quot; TEXT NULL,
+    &quot;NormalizedName&quot; TEXT NULL,
+    &quot;ConcurrencyStamp&quot; TEXT NULL
+)</td></tr><tr><td>index</td><td>sqlite_autoindex_AspNetRoles_1</td><td>AspNetRoles</td><td>7</td><td>NULL</td></tr><tr><td>table</td><td>AspNetUsers</td><td>AspNetUsers</td><td>8</td><td>CREATE TABLE &quot;AspNetUsers&quot; (
+    &quot;Id&quot; TEXT NOT NULL CONSTRAINT &quot;PK_AspNetUsers&quot; PRIMARY KEY,
+    &quot;UserName&quot; TEXT NULL,
+    &quot;NormalizedUserName&quot; TEXT NULL,
+    &quot;Email&quot; TEXT NULL,
+    &quot;NormalizedEmail&quot; TEXT NULL,
+    &quot;EmailConfirmed&quot; INTEGER NOT NULL,
+    &quot;PasswordHash&quot; TEXT NULL,
+    &quot;SecurityStamp&quot; TEXT NULL,
+    &quot;ConcurrencyStamp&quot; TEXT NULL,
+    &quot;PhoneNumber&quot; TEXT NULL,
+    &quot;PhoneNumberConfirmed&quot; INTEGER NOT NULL,
+    &quot;TwoFactorEnabled&quot; INTEGER NOT NULL,
+    &quot;LockoutEnd&quot; TEXT NULL,
+    &quot;LockoutEnabled&quot; INTEGER NOT NULL,
+    &quot;AccessFailedCount&quot; INTEGER NOT NULL,
+    &quot;DisplayName&quot; TEXT NULL
+)</td></tr><tr><td>index</td><td>sqlite_autoindex_AspNetUsers_1</td><td>AspNetUsers</td><td>9</td><td>NULL</td></tr><tr><td>table</td><td>AspNetRoleClaims</td><td>AspNetRoleClaims</td><td>10</td><td>CREATE TABLE &quot;AspNetRoleClaims&quot; (
+    &quot;Id&quot; INTEGER NOT NULL CONSTRAINT &quot;PK_AspNetRoleClaims&quot; PRIMARY KEY AUTOINCREMENT,
+    &quot;RoleId&quot; TEXT NOT NULL,
+    &quot;ClaimType&quot; TEXT NULL,
+    &quot;ClaimValue&quot; TEXT NULL,
+    CONSTRAINT &quot;FK_AspNetRoleClaims_AspNetRoles_RoleId&quot; FOREIGN KEY (&quot;RoleId&quot;) REFERENCES &quot;AspNetRoles&quot; (&quot;Id&quot;) ON DELETE CASCADE
+)</td></tr><tr><td>table</td><td>AspNetUserClaims</td><td>AspNetUserClaims</td><td>11</td><td>CREATE TABLE &quot;AspNetUserClaims&quot; (
+    &quot;Id&quot; INTEGER NOT NULL CONSTRAINT &quot;PK_AspNetUserClaims&quot; PRIMARY KEY AUTOINCREMENT,
+    &quot;UserId&quot; TEXT NOT NULL,
+    &quot;ClaimType&quot; TEXT NULL,
+    &quot;ClaimValue&quot; TEXT NULL,
+    CONSTRAINT &quot;FK_AspNetUserClaims_AspNetUsers_UserId&quot; FOREIGN KEY (&quot;UserId&quot;) REFERENCES &quot;AspNetUsers&quot; (&quot;Id&quot;) ON DELETE CASCADE
+)</td></tr><tr><td>table</td><td>AspNetUserLogins</td><td>AspNetUserLogins</td><td>12</td><td>CREATE TABLE &quot;AspNetUserLogins&quot; (
+    &quot;LoginProvider&quot; TEXT NOT NULL,
+    &quot;ProviderKey&quot; TEXT NOT NULL,
+    &quot;ProviderDisplayName&quot; TEXT NULL,
+    &quot;UserId&quot; TEXT NOT NULL,
+    CONSTRAINT &quot;PK_AspNetUserLogins&quot; PRIMARY KEY (&quot;LoginProvider&quot;, &quot;ProviderKey&quot;),
+    CONSTRAINT &quot;FK_AspNetUserLogins_AspNetUsers_UserId&quot; FOREIGN KEY (&quot;UserId&quot;) REFERENCES &quot;AspNetUsers&quot; (&quot;Id&quot;) ON DELETE CASCADE
+)</td></tr><tr><td>index</td><td>sqlite_autoindex_AspNetUserLogins_1</td><td>AspNetUserLogins</td><td>13</td><td>NULL</td></tr><tr><td>table</td><td>AspNetUserRoles</td><td>AspNetUserRoles</td><td>14</td><td>CREATE TABLE &quot;AspNetUserRoles&quot; (
+    &quot;UserId&quot; TEXT NOT NULL,
+    &quot;RoleId&quot; TEXT NOT NULL,
+    CONSTRAINT &quot;PK_AspNetUserRoles&quot; PRIMARY KEY (&quot;UserId&quot;, &quot;RoleId&quot;),
+    CONSTRAINT &quot;FK_AspNetUserRoles_AspNetRoles_RoleId&quot; FOREIGN KEY (&quot;RoleId&quot;) REFERENCES &quot;AspNetRoles&quot; (&quot;Id&quot;) ON DELETE CASCADE,
+    CONSTRAINT &quot;FK_AspNetUserRoles_AspNetUsers_UserId&quot; FOREIGN KEY (&quot;UserId&quot;) REFERENCES &quot;AspNetUsers&quot; (&quot;Id&quot;) ON DELETE CASCADE
+)</td></tr><tr><td>index</td><td>sqlite_autoindex_AspNetUserRoles_1</td><td>AspNetUserRoles</td><td>15</td><td>NULL</td></tr><tr><td>table</td><td>AspNetUserTokens</td><td>AspNetUserTokens</td><td>16</td><td>CREATE TABLE &quot;AspNetUserTokens&quot; (
+    &quot;UserId&quot; TEXT NOT NULL,
+    &quot;LoginProvider&quot; TEXT NOT NULL,
+    &quot;Name&quot; TEXT NOT NULL,
+    &quot;Value&quot; TEXT NULL,
+    CONSTRAINT &quot;PK_AspNetUserTokens&quot; PRIMARY KEY (&quot;UserId&quot;, &quot;LoginProvider&quot;, &quot;Name&quot;),
+    CONSTRAINT &quot;FK_AspNetUserTokens_AspNetUsers_UserId&quot; FOREIGN KEY (&quot;UserId&quot;) REFERENCES &quot;AspNetUsers&quot; (&quot;Id&quot;) ON DELETE CASCADE
+)</td></tr><tr><td>index</td><td>sqlite_autoindex_AspNetUserTokens_1</td><td>AspNetUserTokens</td><td>17</td><td>NULL</td></tr><tr><td>index</td><td>IX_AspNetRoleClaims_RoleId</td><td>AspNetRoleClaims</td><td>18</td><td>CREATE INDEX &quot;IX_AspNetRoleClaims_RoleId&quot; ON &quot;AspNetRoleClaims&quot; (&quot;RoleId&quot;)</td></tr><tr><td>index</td><td>RoleNameIndex</td><td>AspNetRoles</td><td>20</td><td>CREATE UNIQUE INDEX &quot;RoleNameIndex&quot; ON &quot;AspNetRoles&quot; (&quot;NormalizedName&quot;)</td></tr><tr><td>index</td><td>IX_AspNetUserClaims_UserId</td><td>AspNetUserClaims</td><td>22</td><td>CREATE INDEX &quot;IX_AspNetUserClaims_UserId&quot; ON &quot;AspNetUserClaims&quot; (&quot;UserId&quot;)</td></tr><tr><td>index</td><td>IX_AspNetUserLogins_UserId</td><td>AspNetUserLogins</td><td>23</td><td>CREATE INDEX &quot;IX_AspNetUserLogins_UserId&quot; ON &quot;AspNetUserLogins&quot; (&quot;UserId&quot;)</td></tr><tr><td>index</td><td>IX_AspNetUserRoles_RoleId</td><td>AspNetUserRoles</td><td>24</td><td>CREATE INDEX &quot;IX_AspNetUserRoles_RoleId&quot; ON &quot;AspNetUserRoles&quot; (&quot;RoleId&quot;)</td></tr><tr><td>index</td><td>EmailIndex</td><td>AspNetUsers</td><td>25</td><td>CREATE INDEX &quot;EmailIndex&quot; ON &quot;AspNetUsers&quot; (&quot;NormalizedEmail&quot;)</td></tr><tr><td>index</td><td>UserNameIndex</td><td>AspNetUsers</td><td>26</td><td>CREATE UNIQUE INDEX &quot;UserNameIndex&quot; ON &quot;AspNetUsers&quot; (&quot;NormalizedUserName&quot;)</td></tr></table>

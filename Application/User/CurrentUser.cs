@@ -18,19 +18,17 @@ namespace Application.User
 
         public class Handler : IRequestHandler<Query, User>
         {
-
             private readonly UserManager<AppUser> _userManager;
-
             private readonly IJwtGenerator _jwtGenerator;
             private readonly IUserAccessor _userAccessor;
-
+            //1. Inject necessary services
             public Handler(UserManager<AppUser> userManager, IJwtGenerator jwtGenerator, IUserAccessor userAccessor)
             {
                 this._userAccessor = userAccessor;
                 this._userManager = userManager;
                 this._jwtGenerator = jwtGenerator;
             }
-
+            
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByNameAsync(_userAccessor.GetCurrentUsername());
@@ -38,6 +36,7 @@ namespace Application.User
                 {
                     throw new RestException(System.Net.HttpStatusCode.Unauthorized);
                 }
+                // Use the service in handler
                     return new User
                     {
                         DisplayName = user.DisplayName,

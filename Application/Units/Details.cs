@@ -12,11 +12,9 @@ namespace Application.TutorialUnits
 {
     public class Details
     {
-        //we want to have List<Activity> be returned
+        //we want to have List<TutorialUnit> be returned
         public class Query:IRequest<TutorialUnit>{
-
-
-              // we want to specify the id of activity that we want to get back,so we have this property
+              // we want to specify the id of tutorial unit that we want to get back,so we have this property
               public int Id { get; set; }
         }   
 
@@ -24,7 +22,7 @@ namespace Application.TutorialUnits
         public class Handler : IRequestHandler<Query, TutorialUnit>
         {
             private readonly DataContext _context;
-
+            //Dependency Database Context from Persistence Project into handler
             public Handler(DataContext context)
             {
                 this._context = context;

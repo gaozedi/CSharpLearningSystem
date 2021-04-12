@@ -20,6 +20,7 @@ import { Nav, INavStyles, INavLinkGroup } from "office-ui-fabric-react/lib/Nav";
 import UnitsList from "./UnitsList";
 import MyCompiler from "../../compiler/MyCompiler";
 import MFQs from "../../../app/NewUI/MFQs";
+import Notebook from "../../../app/NewUI/Notebook";
 //in order to use the interface above, we neet to give our component a type, then we can use props object
 //in our component
 
@@ -53,13 +54,13 @@ export const UnitDashboard: React.FC = () => {
           collapseAriaLabel: "Collapse Home section",
           links: [
             {
-              name: "Activity",
+              name: "Introduction",
               url: "http://msn.com",
               key: "key1",
               target: "_blank",
             },
             {
-              name: "MSN",
+              name: "LESLIE UI",
               url: "http://msn.com",
               disabled: true,
               key: "key2",
@@ -82,15 +83,16 @@ export const UnitDashboard: React.FC = () => {
           target: "_blank",
         },
         {
-          name: "Notebook",
+          name: "My Notebook",
           url: "http://msn.com",
           key: "key5",
-          disabled: true,
+        
         },
         {
-          name: "Communication and Media",
+          name: "Media",
           url: "http://msn.com",
           key: "key6",
+          
           target: "_blank",
         },
         {
@@ -133,8 +135,8 @@ export const UnitDashboard: React.FC = () => {
                 </Stack>
               </Label>
             </PivotItem>
-            <PivotItem headerText="Placeholder" itemIcon="Globe">
-              <Label styles={labelStyles}>Pivot #3</Label>
+            <PivotItem headerText="Note" itemIcon="Globe">
+              <Notebook />
             </PivotItem>
             <PivotItem
               headerText="Shared with me"

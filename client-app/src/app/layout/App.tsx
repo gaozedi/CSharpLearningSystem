@@ -15,6 +15,7 @@ import { initializeIcons } from "@fluentui/react";
 import MFQs from "../NewUI/MFQs";
 import Game from "../NewUI/Game";
 import VideoUnits from "../NewUI/VideoUnits";
+import Notebook from "../NewUI/Notebook";
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
@@ -53,6 +54,8 @@ const App = () => {
       <Route exact path="/mfqs" component={MFQs} />
       <Route exact path="/game" component={Game} />
       <Route exact path="/videos" component={VideoUnits} />
+      <Route exact path="/notebook" component={Notebook} />
+
       {/* when we are hitting the route with / and anything else, then the route matches*/}
       <Route
         path={"/(.+)"}
@@ -71,7 +74,6 @@ const App = () => {
               /> */}
               <Route path="/compiler" component={MyCompiler} />
               <Route path="/login" component={LoginForm} />
-          
             </div>
           </div>
         )}
