@@ -62,19 +62,24 @@
 }
 
 .rainbow2 {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(0.1, rgb(125, 163, 245)),
-    color-stop(0.4, rgb(238, 31, 100)),
-    color-stop(0.9, rgb(4, 35, 139))
-  );
+  background: #7F7FD5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
+.rainbow_text {
+  background: #e52d27;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #b31217, #e52d27);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #b31217, #e52d27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 .rainbowbg {
   /* width: 30rem;
   height: 20rem; */

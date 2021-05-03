@@ -45,13 +45,13 @@ const NewHomePage: React.FC = () => {
             style={{ paddingTop: "5%" }}
           >
             <Stack.Item grow={2}>
-              <Text style={{ fontSize: 180, paddingLeft: "5%" }}>My</Text>
-              <Text className="rainbow" style={{ fontSize: 200 }}>
+              <Text  style={{ fontSize: 180, paddingLeft: "5%"}}>C#</Text>
+              <Text  className="rainbow2" style={{ fontSize: 200 }}>
                 Home
               </Text>
             </Stack.Item>
             <Stack.Item grow={4}>
-              <Text style={{ marginRight: "10%" }} variant="xLarge">
+              <Text  style={{ marginRight: "10%"}} variant="xLarge">
                 "When people concentrate on the idea of beauty, they are,
                 without realizing it, confronted with the darkest thoughts that
                 exist in this world. "
